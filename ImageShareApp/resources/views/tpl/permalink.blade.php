@@ -18,4 +18,4 @@
     </td>
   </tr>
 </table>
-@stop
+@endsection

@@ -6,4 +6,4 @@
   {{Form::file('image')}}
   {{Form::submit('save!',array('name'=>'send'))}}
   {{Form::close()}}
-@stop
+@endsection

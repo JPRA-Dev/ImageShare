@@ -17,6 +17,7 @@ class Photos extends Migration
             $table->increments('id');
             $table->string('title',400)->default('');//the column that holds the image's name
             $table->string('image',400)->default('');//the column that holds the image's filename
+            $table->string('description')->default('');
             $table->timestamps();
         });
     }

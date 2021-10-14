@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\File;
 
 
 
@@ -92,5 +93,39 @@ public function getSnatch($id) {
     } else {
       return Redirect::to('/')->with('error','Image not found');
     }
-  }
+}
+
+
+public function getAll(){
+
+    //Let's first take all images with a pagination feature
+    $all_images = DB::table('photos')->orderBy('id','desc')->paginate(6);
+  
+    //Then let's load the view with found data and pass thevariable to the view
+    return View::make('tpl.all_images')->with('images',$all_images);
+}
+
+public function getDelete($id) {
+    //Let's first find the image
+    $image = Photo::find($id);
+  
+    //If there's an image, we will continue to the deletingprocess
+    if($image) {
+      //First, let's delete the images from FTP
+      File::delete(Config::get('image.upload_folder').'/'.$image->image);
+      File::delete(Config::get('image.thumb_folder').'/'.$image->image);
+  
+      //Now let's delete the value from database
+      $image->delete();
+  
+      //Let's return to the main page with a success message
+      return Redirect::to('/')->with('success','Image deleted successfully');
+  
+    } else {
+      //Image not found, so we will redirect to the indexpage with an error message flash data.
+      return Redirect::to('/')->with('error','No image found with given ID');
+    }
+}
+
+
 }
