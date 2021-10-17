@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -32,3 +33,7 @@ Route::get('all',[ImageController::class,'getAll']);
 //This route is to delete the image with the given ID
 Route::get('delete/{id}',[ImageController::class,'getDelete'])->where('id', '[0-9]+');
 //Route::get('delete/{id}', array('as'=>'delete_image','uses'=>'ImageController@getDelete'))->where('id', '[0-9]+');
+Auth::routes();
+
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

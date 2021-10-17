@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
   <meta http-equiv="content-type"content="text/html; charset=utf-8">
-  <title>My Image Sharing Website</title>
+  <title>My Awesome Image Sharing Website</title>
   {{Html::style('css/styles.css')}}
   </head>
 
