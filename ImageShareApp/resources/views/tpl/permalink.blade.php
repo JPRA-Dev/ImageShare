@@ -15,6 +15,10 @@
           <h3 class="pt-4 mb-2 text-2xl">Title: {{$image->title}}</h3>
           <br>
         </div>
+        <div class="px-8 mb-4 text-center">
+          <h3 class="pt-4 mb-2 text-1xl">Uploaded by: {{$image->user}}</h3>
+          <br>
+        </div>
           <div class="mb-4">
             <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
               Direct Image URL
@@ -47,6 +51,10 @@
               type="text"
               value="{{html_entity_decode(Html::link(URL::to('snatch/'.$image->id),Html::image(Config::get('images.thumb_folder').'/'.$image->image)))}}"
             />
+          </div>
+          <div class="px-8 mb-4 text-center">
+            <h3 class="pt-4 mb-2 text-1xl">Description: {{$image->description}}</h3>
+            <br>
           </div>
           {{-- <div class="mb-6 text-center">
             <button

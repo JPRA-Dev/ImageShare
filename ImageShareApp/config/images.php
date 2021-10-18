@@ -16,6 +16,6 @@ return array(
   'thumb_width' => 320,
 
   //height of the resized thumbnail
-  'thumb_height' => 240
+  'thumb_height' => 'auto'
 
 );

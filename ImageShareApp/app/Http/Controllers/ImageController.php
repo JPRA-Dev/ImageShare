@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\photo;
 use App\config\images;
-use App\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
@@ -17,6 +16,8 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+use  App\Models\User; 
 
 
 
@@ -27,7 +28,7 @@ class ImageController extends Controller {
   public function getIndex()
   {
     //Let's load the form view
-    return view('tpl.index');
+    return view('tpl.uploadImage');
   }
 
   public function postIndex(Request $request)
@@ -57,6 +58,9 @@ class ImageController extends Controller {
     //We upload the image first to the upload folder, then make a thumbnail from the uploaded image
     $upload = $image->move(Config::get( 'images.upload_folder'),$fullname);
 
+    $user = User::find(auth()->user()->id);
+
+
     //Our model that we've created is named Photo, this library has an alias named Image, don't mix them two!
     //These parameters are related to the image processing class that we've included, not really related to Laravel.
     //Image::make(Config::get( 'images.upload_folder').'/'.$fullname)->resize(Config::get( 'images.thumb_width'),null, true)->save(Config::get( 'images.thumb_folder').'/'.$fullname);
@@ -71,12 +75,14 @@ class ImageController extends Controller {
       $insert_id = DB::table('photos')->insertGetId(
         array(
           'title' => $request->input('title'),
-          'image' => $fullname
+          'description' => $request->input('description'),
+          'image' => $fullname,
+          'user' => $user->name,
         )
       );
 
       //Now we redirect to the image's permalink
-      return Redirect::to(URL::to('snatch/'.$insert_id))->with('success','Your image is uploadedsuccessfully!');
+      return Redirect::to(URL::to('snatch/'.$insert_id))->with('success','Your image was uploaded successfully!');
     } else {
       //image cannot be uploaded
       return Redirect::to('/')->withInput()->with('error','Sorry, the image could not be uploaded, please try again later.');

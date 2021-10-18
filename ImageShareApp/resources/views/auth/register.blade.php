@@ -15,8 +15,38 @@
                     @csrf
 
                     <div class="flex flex-wrap">
+                        <label for="firstName" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('First Name') }}:
+                        </label>
+
+                        <input id="firstName" type="text" class="form-input w-full @error('firstName')  border-red-500 @enderror"
+                            name="firstName" value="{{ old('firstName') }}" required autocomplete="firstName" autofocus>
+
+                        @error('firstName')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="lastName" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Last Name') }}:
+                        </label>
+
+                        <input id="lastName" type="text" class="form-input w-full @error('lastName')  border-red-500 @enderror"
+                            name="lastName" value="{{ old('lastName') }}" required autocomplete="lastName" autofocus>
+
+                        @error('lastName')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Name') }}:
+                            {{ __('Profile Name') }}:
                         </label>
 
                         <input id="name" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
@@ -68,7 +98,7 @@
 
                         <input id="password-confirm" type="password" class="form-input w-full"
                             name="password_confirmation" required autocomplete="new-password">
-                    </div>
+                    </div>             
 
                     <div class="flex flex-wrap">
                         <button type="submit"

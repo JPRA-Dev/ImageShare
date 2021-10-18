@@ -19,6 +19,6 @@ class Photo extends Model {
    //rules of the image upload form
     public static $upload_rules = array(
         'title'=> 'required|min:3',
-        'image'=> 'required|image'
+        'image'=> 'required|image',
     );
   }
