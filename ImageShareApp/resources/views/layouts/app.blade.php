@@ -1,6 +1,3 @@
-<?php
-$userName = Auth::user()->name;
-?>
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -33,34 +30,37 @@ $userName = Auth::user()->name;
                 </div>
                 <nav class="flex items-center justify-between flex-wrap bg-teal  text-gray-300 text-sm sm:text-base">
                     @guest
-                        <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="no-underline hover:underline" href="{{ route('login') }}" style="margin-left:5px; margin-right:5px;">{{ __('Login') }}</a>
                         @if (Route::has('register'))
-                            <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="no-underline hover:underline" href="{{ route('register') }}" style="margin-left:5px; margin-right:5px;">{{ __('Register') }}</a>
                         @endif
                     @else
                     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                        <div class="text-sm lg:flex-grow">
-                        <a class="no-underline hover:underline" href="{{ url('/upload/image') }}">
+                        <a class="no-underline hover:underline" href="/profile/{{Auth::user()->name}}" style="margin-left:5px; margin-right:5px;">
+                            <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:35px; height:35px; border-radius:50%;">
+                        </a>
+                        <a class="no-underline hover:underline" href="/profile/{{Auth::user()->name}}" style="margin-left:5px; margin-right:5px;">
+                            <div>{{ Auth::user()->name }}</div>
+                        </a>
+                       
+                        <a class="no-underline hover:underline" href="{{ url('/upload/image') }}" style="margin-left:5px; margin-right:5px;">
                             Upload Image
                         </a>
                         {{-- @if(Auth::user()->image)
                             <img class="image rounded-circle" src="{{asset('/storage/images/'.Auth::user()->image)}}" alt="profile_image" style="width: 80px;height: 80px; padding: 10px; margin: 0px; ">
                         @endif --}}
-                        <a class="no-underline hover:underline" href="{{ url('/profile/$userName') }}">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:35px; height:35px; border-radius:50%;">
-                        <div>{{ Auth::user()->name }}</div>
-                        </a>
+                       
                         {{-- <span>{{ Auth::user()->name }}</span> --}}
                         
                         <a href="{{ route('logout') }}"
-                           class="no-underline hover:underline"
+                           class="no-underline hover:underline" style="margin-left:5px; margin-right:5px;"
                            onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                             {{ csrf_field() }}
                         </form>
                     @endguest
-                </div>
+                
             </div>
                 </nav>
             </div>

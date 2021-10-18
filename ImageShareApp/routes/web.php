@@ -57,6 +57,6 @@ Route::post('/editProfileAvatar', [UserController::class, 'updateAvatar']);
 
 Route::post('/editProfileBGImage', [UserController::class, 'updateBGImage']);
 
-Route::post('/editProfileInfo', [HomeController::class, 'profileUpdate']);
+Route::put('/editProfileInfo', [HomeController::class, 'profileUpdate']);
 
 

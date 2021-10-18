@@ -54,7 +54,7 @@ class HomeController extends Controller
         $user->country = $request['country'];
         $user->website = $request['website'];
         $user->description = $request['description'];
-        $user->save();
+        $user->update();
         // return back()->with('message','Profile Updated');
     }
 
