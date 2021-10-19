@@ -55,7 +55,8 @@ class HomeController extends Controller
         $user->website = $request['website'];
         $user->description = $request['description'];
         $user->update();
-        // return back()->with('message','Profile Updated');
+        
+        return redirect('/profile/'.Auth()->user()->name);
     }
 
 }

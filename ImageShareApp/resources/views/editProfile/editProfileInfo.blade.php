@@ -34,7 +34,7 @@
                       </label>
 
                       <input id="name" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
-                          name="name" value="{{ old('name') }}">
+                          name="name" value="{{ $user->name }}">
                     </div>
 
                     <div class="flex flex-wrap">
@@ -43,7 +43,7 @@
                       </label>
 
                       <input id="firstName" type="text" class="form-input w-full @error('firstName')  border-red-500 @enderror"
-                          name="firstName" value="{{ old('firstName') }}">
+                          name="firstName" value="{{ $user->firstName }}">
                   </div>
 
                   <div class="flex flex-wrap">
@@ -52,7 +52,7 @@
                     </label>
 
                     <input id="lastName" type="text" class="form-input w-full @error('lastName')  border-red-500 @enderror"
-                        name="lastName" value="{{ old('lastName') }}">
+                        name="lastName" value="{{ $user->lastName }}">
                   </div>
 
                     <div class="flex flex-wrap">
@@ -61,7 +61,7 @@
                         </label>
 
                         <input id="town" type="text" class="form-input w-full @error('town')  border-red-500 @enderror"
-                            name="town" value="{{ old('town') }}">
+                            name="town" value="{{ $user->town }}">
                     </div>
 
                     <div class="flex flex-wrap">
@@ -70,7 +70,7 @@
                       </label>
 
                       <input id="country" type="text" class="form-input w-full @error('country')  border-red-500 @enderror"
-                          name="country" value="{{ old('country') }}">
+                          name="country" value="{{ $user->country }}">
                   </div>
 
                   <div class="flex flex-wrap">
@@ -79,7 +79,7 @@
                     </label>
 
                     <input id="work" type="text" class="form-input w-full @error('work')  border-red-500 @enderror"
-                        name="work" value="{{ old('work') }}">
+                        name="work" value="{{ $user->work }}">
                   </div>  
                   
                   <div class="flex flex-wrap">
@@ -88,7 +88,7 @@
                     </label>
 
                     <input id="website" type="text" class="form-input w-full @error('website')  border-red-500 @enderror"
-                        name="website" value="{{ old('website') }}">
+                        name="website" value="{{ $user->website }}">
                   </div>
 
                  
@@ -98,7 +98,7 @@
                     </label>
 
                     <textarea id="description" type="text" class="form-input w-full @error('description')  border-red-500 @enderror"
-                        name="description" value="{{ old('description') }}"></textarea>
+                        name="description" >{{$user->description}}</textarea>
                   </div>
 
                     <div class="flex flex-wrap">

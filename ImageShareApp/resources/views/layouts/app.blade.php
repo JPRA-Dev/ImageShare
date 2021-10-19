@@ -16,6 +16,8 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
     <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
 
 </head>
 
@@ -24,36 +26,30 @@
         <header class="bg-blue-900 py-6">
             <div class="container mx-auto flex justify-between items-center px-6">
                 <div>
-                    <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
+                    <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline hover:text-white">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
                 <nav class="flex items-center justify-between flex-wrap bg-teal  text-gray-300 text-sm sm:text-base">
                     @guest
-                        <a class="no-underline hover:underline" href="{{ route('login') }}" style="margin-left:5px; margin-right:5px;">{{ __('Login') }}</a>
+                        <a class="no-underline hover:underline text-white" href="{{ route('login') }}" style="margin-left:7px; margin-right:7px">{{ __('Login') }}</a>
                         @if (Route::has('register'))
-                            <a class="no-underline hover:underline" href="{{ route('register') }}" style="margin-left:5px; margin-right:5px;">{{ __('Register') }}</a>
+                            <a class="no-underline hover:underline text-white" href="{{ route('register') }}" style="margin-left:7px; margin-right:7px">{{ __('Register') }}</a>
                         @endif
                     @else
                     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                        <a class="no-underline hover:underline" href="/profile/{{Auth::user()->name}}" style="margin-left:5px; margin-right:5px;">
-                            <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:35px; height:35px; border-radius:50%;">
+                        <a  href="/profile/{{Auth::user()->name}}" style="margin-left:7px; margin-right:7px;">
+                            <img src="/uploads/avatars/{{Auth::user()->avatar}}" style="width:35px; height:35px; border-radius:50%;">
                         </a>
-                        <a class="no-underline hover:underline" href="/profile/{{Auth::user()->name}}" style="margin-left:5px; margin-right:5px;">
+                        <a class="no-underline hover:underline text-white" href="/profile/{{Auth::user()->name}}" style="margin-left:7px; margin-right:7px">
                             <div>{{ Auth::user()->name }}</div>
                         </a>
                        
-                        <a class="no-underline hover:underline" href="{{ url('/upload/image') }}" style="margin-left:5px; margin-right:5px;">
+                        <a class="no-underline hover:underline text-white" href="{{ url('/upload/image') }}" style="margin-left:7px; margin-right:7px">
                             Upload Image
                         </a>
-                        {{-- @if(Auth::user()->image)
-                            <img class="image rounded-circle" src="{{asset('/storage/images/'.Auth::user()->image)}}" alt="profile_image" style="width: 80px;height: 80px; padding: 10px; margin: 0px; ">
-                        @endif --}}
-                       
-                        {{-- <span>{{ Auth::user()->name }}</span> --}}
-                        
                         <a href="{{ route('logout') }}"
-                           class="no-underline hover:underline" style="margin-left:5px; margin-right:5px;"
+                           class="no-underline hover:underline text-white" style="margin-left:7px; margin-right:7px"
                            onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">

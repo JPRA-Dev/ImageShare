@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\UserController;
@@ -29,34 +30,52 @@ Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('a
 // //Route::post('/',array('as'=>'index_page_post','before' =>'csrf', 'uses'=>'ImageController@postIndex'));
 
 //This is to show the image's permalink on our website
-Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+')->middleware('auth');
+Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
 //Route::get('snatch/{id}',array('as'=>'get_image_information','uses'=>'ImageController@getSnatch'))->where('id', '[0-9]+');
 
 //This route is to show all images.
-Route::get('/',[ImageController::class,'getAll']);
+Route::get('/',[ImageController::class,'getAll'])->name('home');
 //Route::get('all',array('as'=>'all_images','uses'=>'ImageController@getAll'));
 
+Route::get('/editImage/{photo:id}', [ImageController::class, 'getEditImage'])->middleware('auth');
+
+Route::put('/editImage/{photo:id}', [ImageController::class, 'editImage'])->middleware('auth');
+
 //This route is to delete the image with the given ID
-Route::get('/delete/{id}',[ImageController::class,'getDelete'])->where('id', '[0-9]+');
+Route::get('/delete/{id}',[ImageController::class,'getDelete'])->where('id', '[0-9]+')->middleware('auth');
 //Route::get('delete/{id}', array('as'=>'delete_image','uses'=>'ImageController@getDelete'))->where('id', '[0-9]+');
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index']);
 
-Route::get('/profile', [UserController::class, 'profile']);
+// Route::get('/verifyEmail', [VerificationController::class, 'index'])->name('home');
+
+// Route::get('/profile', [UserController::class, 'profile']);
 
 Route::get('/profile/{user}', [UserPublicProfileController::class, 'profile'])->name('user.profile');
 
-Route::get('/editProfileInfo', [UserController::class, 'editProfileInfo']);
 
-Route::get('/editProfileAvatar', [UserController::class, 'editProfileAvatar']);
 
-Route::get('/editProfileBGImage', [UserController::class, 'editProfileBGImage']);
+Route::get('/editProfileAvatar', [UserController::class, 'editProfileAvatar'])->middleware('auth');
 
-Route::post('/editProfileAvatar', [UserController::class, 'updateAvatar']);
+Route::put('/editProfileAvatar', [UserController::class, 'updateAvatar'])->middleware('auth');
 
-Route::post('/editProfileBGImage', [UserController::class, 'updateBGImage']);
 
-Route::put('/editProfileInfo', [HomeController::class, 'profileUpdate']);
+Route::get('/editProfileBGImage', [UserController::class, 'editProfileBGImage'])->middleware('auth');
+
+Route::put('/editProfileBGImage', [UserController::class, 'updateBGImage'])->middleware('auth');
+
+
+Route::get('/editProfileInfo', [UserController::class, 'editProfileInfo'])->middleware('auth');
+
+Route::put('/editProfileInfo', [HomeController::class, 'profileUpdate'])->middleware('auth');
+
+
+
+
+
+
+
+
 
 

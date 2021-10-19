@@ -26,10 +26,10 @@ class UserController extends Controller
 
             $user = User::find(auth()->user()->id);
             $user->avatar = $filename;
-            $user->save();
+            $user->update();
 
         }
-        return view('profile', array('user' => Auth::user()));
+        return redirect('/profile/'.Auth()->user()->name);
     }
 
     public function updateBGImage(Request $request) {
@@ -38,13 +38,13 @@ class UserController extends Controller
         if($request->hasFile('bgImage')) {
             $bgImage = $request->file('bgImage');
             $filename = time() . '.' . $bgImage->getClientOriginalExtension();
-            Image::make($bgImage)->resize(300, 300)->save( public_path('uploads/bgImages/' . $filename));
+            Image::make($bgImage)->save( public_path('uploads/bgImages/' . $filename));
 
             $user = User::find(auth()->user()->id);
             $user->bgImage = $filename;
-            $user->save();
+            $user->update();
         }
-        return view('profile', array('user' => Auth::user()));
+        return redirect('/profile/'.Auth()->user()->name);
     }
 
     public function editProfileInfo(){

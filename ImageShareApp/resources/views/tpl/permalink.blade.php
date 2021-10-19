@@ -16,7 +16,7 @@
           <br>
         </div>
         <div class="px-8 mb-4 text-center">
-          <h3 class="pt-4 mb-2 text-1xl">Uploaded by: {{$image->user}}</h3>
+          <h3 class="pt-4 mb-2 text-xl">Uploaded by: <a class="no-underline hover:underline text-gray-700 hover:text-gray-600" href="/profile/{{$image->user}}">{{$user->name}}</a></h3>
           <br>
         </div>
           <div class="mb-4">
@@ -53,7 +53,22 @@
             />
           </div>
           <div class="px-8 mb-4 text-center">
-            <h3 class="pt-4 mb-2 text-1xl">Description: {{$image->description}}</h3>
+            <h3 class="pt-4 mb-2 text-xl">Description: {{$image->description}}</h3>
+            <br>
+          </div>
+
+          @if (isset(Auth::user()->id) && Auth::user()->id == $image->user)
+          <div class="px-8 mb-4 text-center">
+          <a href={{URL::to('editImage/'.$image->id)}} class="text-center">  
+            <button class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+              Edit/Delete Image
+            </button>
+          </a>
+          </div>
+          @endif
+
+          <div class="px-8 mb-4 text-center">
+            <h5 class="pt-4 mb-2 text-xl "><a href="{{URL::to('snatch/'.$lastPageNumber)}}" class="hover:text-gray-600 text-gray-700">Last image</a>   |   <a href="{{URL::to('snatch/'.$nextPageNumber)}}" class="hover:text-gray-600 text-gray-700">Next Image</a></h5>
             <br>
           </div>
           {{-- <div class="mb-6 text-center">

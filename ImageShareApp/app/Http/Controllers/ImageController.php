@@ -31,6 +31,39 @@ class ImageController extends Controller {
     return view('tpl.uploadImage');
   }
 
+  public function getEditImage($id)
+  {
+    $image = Photo::find($id);
+    //Let's load the form view
+    return view('tpl.editImage')->with('image',$image);
+  }
+
+  public function editImage(Request $request, Photo $image){
+    //validation rules
+    // $image = Photo::find($id);
+
+    dd($image);
+  
+    //If there's an image, we will continue to the editing process
+    
+    // $image->validate([
+    //     'title' => ['string', 'max:20'],
+    //     'description' => ['string', 'max:20']
+    //     //'image' => ['file', 'max:20'],
+    //     //'user' => ['string', 'max:20']
+    // ]);
+       
+    // $image->title = $request['title'];
+    // $image->description = $request['description'];
+    // // $image->image = $image->image;
+    // // $image->user = $image->user;
+    // $image->update();
+    
+      //Let's return to the main page with a success message
+      return Redirect::to('/')->with('success','Image info successfully updated');
+  
+}
+
   public function postIndex(Request $request)
 {
   
@@ -71,13 +104,13 @@ class ImageController extends Controller {
     //If the file is now uploaded, we show an error message to the user, else we add a new column to the databaseand show the success message
     if($upload) {
 
-      //image is now uploaded, we first need to add columnto the database
+      //image is now uploaded, we first need to add a column to the database
       $insert_id = DB::table('photos')->insertGetId(
         array(
           'title' => $request->input('title'),
           'description' => $request->input('description'),
           'image' => $fullname,
-          'user' => $user->name,
+          'user' => $user->id,
         )
       );
 
@@ -93,9 +126,15 @@ class ImageController extends Controller {
 public function getSnatch($id) {
     //Let's try to find the image from database first
     $image = Photo::find($id);
+    $user = User::find($image->user);
+    $lastPageNumber = $id - 1;
+    $nextPageNumber = $id + 1;
+    if ($lastPageNumber < 1) {
+      Redirect::to('/');
+    }
     //If found, we load the view and pass the image info asparameter, else we redirect to main page with errormessage
     if($image) {
-      return View::make('tpl.permalink')->with('image',$image);
+      return View::make('tpl.permalink')->with('image',$image)->with('lastPageNumber', $lastPageNumber)->with('nextPageNumber', $nextPageNumber)->with('user', $user);
     } else {
       return Redirect::to('/')->with('error','Image not found');
     }

@@ -23,6 +23,7 @@
                 <form enctype="multipart/form-data" class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST"
                     action="/editProfileAvatar">
                     @csrf
+                    @method("PUT")
                     <div class="flex flex-wrap">
                         <label class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">Update Profile Image</label>
                         <input type='file' name='avatar' class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
