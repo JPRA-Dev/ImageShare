@@ -15,8 +15,10 @@ class Photos extends Migration
     {
         Schema::create('photos', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('title',400)->default('');//the column that holds the image's name
-            $table->string('image',400)->default('');//the column that holds the image's filename
+            $table->string('title',20)->default('');//the column that holds the image's name
+            $table->string('image',500)->default('');//the column that holds the image's filename
+            $table->string('description',200)->default('');
+            $table->string('user')->default('');
             $table->timestamps();
         });
     }
