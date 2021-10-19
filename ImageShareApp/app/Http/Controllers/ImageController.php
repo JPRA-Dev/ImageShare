@@ -125,6 +125,7 @@ public function getSnatch($id) {
     //Let's try to find the image from database first
     $image = Photo::find($id);
     $user = User::find($image->user);
+    // $user = User::where('id', $userID)->first();
     $lastPageNumber = $id - 1;
     $nextPageNumber = $id + 1;
     if ($lastPageNumber < 1) {
@@ -132,7 +133,7 @@ public function getSnatch($id) {
     }
     //If found, we load the view and pass the image info asparameter, else we redirect to main page with errormessage
     if($image) {
-      return View::make('tpl.permalink')->with('image',$image)->with('lastPageNumber', $lastPageNumber)->with('nextPageNumber', $nextPageNumber)->with('user', $user);
+      return View::make('tpl.permalink')->with('image', $image)->with('lastPageNumber', $lastPageNumber)->with('nextPageNumber', $nextPageNumber)->with('user', $user);
     } else {
       return Redirect::to('/')->with('error','Image not found');
     }

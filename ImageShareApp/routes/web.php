@@ -36,7 +36,7 @@ Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('a
 Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
 //Route::get('snatch/{id}',array('as'=>'get_image_information','uses'=>'ImageController@getSnatch'))->where('id', '[0-9]+');
 
-Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
+// Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
 
 //This route is to show all images.
 Route::get('/',[ImageController::class,'getAll'])->name('home');

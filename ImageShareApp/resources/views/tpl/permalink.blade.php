@@ -16,7 +16,7 @@
           <br>
         </div>
         <div class="px-8 mb-4 text-center">
-          <h3 class="pt-4 mb-2 text-xl">Uploaded by: <a class="no-underline hover:underline text-gray-700 hover:text-gray-600" href="/profile/{{$image->user}}">{{$user->name}}</a></h3>
+          <h3 class="pt-4 mb-2 text-xl">Uploaded by: <a class="no-underline hover:underline text-gray-700 hover:text-gray-600" href="/profile/{{$user->name}}">{{$user->name}}</a></h3>
           <br>
         </div>
           <div class="mb-4">
