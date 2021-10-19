@@ -26,12 +26,14 @@ use App\User;
 // //This is for the get event of the index page
 Route::get('/upload/image',[ImageController::class,'getIndex'])->middleware('auth');
 // //This is for the post event of the index.page
-Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('auth');
+Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('auth')->middleware('verified');
 // //Route::post('/',array('as'=>'index_page_post','before' =>'csrf', 'uses'=>'ImageController@postIndex'));
 
 //This is to show the image's permalink on our website
 Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
 //Route::get('snatch/{id}',array('as'=>'get_image_information','uses'=>'ImageController@getSnatch'))->where('id', '[0-9]+');
+
+Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
 
 //This route is to show all images.
 Route::get('/',[ImageController::class,'getAll'])->name('home');
@@ -42,9 +44,10 @@ Route::get('/editImage/{photo:id}', [ImageController::class, 'getEditImage'])->m
 Route::put('/editImage/{photo:id}', [ImageController::class, 'editImage'])->middleware('auth');
 
 //This route is to delete the image with the given ID
-Route::get('/delete/{id}',[ImageController::class,'getDelete'])->where('id', '[0-9]+')->middleware('auth');
+Route::get('/delete/{id}',[ImageController::class,'getDelete'])->where('id', '[0-9]+')->middleware('auth')->middleware('password.confirm');
 //Route::get('delete/{id}', array('as'=>'delete_image','uses'=>'ImageController@getDelete'))->where('id', '[0-9]+');
-Auth::routes();
+
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [HomeController::class, 'index']);
 
@@ -69,6 +72,17 @@ Route::put('/editProfileBGImage', [UserController::class, 'updateBGImage'])->mid
 Route::get('/editProfileInfo', [UserController::class, 'editProfileInfo'])->middleware('auth');
 
 Route::put('/editProfileInfo', [HomeController::class, 'profileUpdate'])->middleware('auth');
+
+
+
+
+
+
+Route::get('/error/{error}',[UserController::class,'errorHandler']);
+
+
+Route::get('/changeEmail',[HomeController::class,'getchangeEmail'])->middleware('auth')->middleware('password.confirm');
+
 
 
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\photo;
+use App\Models\Photo;
 use App\config\images;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
@@ -38,26 +38,24 @@ class ImageController extends Controller {
     return view('tpl.editImage')->with('image',$image);
   }
 
-  public function editImage(Request $request, Photo $image){
+  public function editImage(Request $request, Photo $photo){
     //validation rules
     // $image = Photo::find($id);
 
-    dd($image);
-  
     //If there's an image, we will continue to the editing process
     
-    // $image->validate([
+    // $photo->validate([
     //     'title' => ['string', 'max:20'],
     //     'description' => ['string', 'max:20']
     //     //'image' => ['file', 'max:20'],
     //     //'user' => ['string', 'max:20']
     // ]);
        
-    // $image->title = $request['title'];
-    // $image->description = $request['description'];
+    $photo->title = $request['title'];
+    $photo->description = $request['description'];
     // // $image->image = $image->image;
     // // $image->user = $image->user;
-    // $image->update();
+    $photo->update();
     
       //Let's return to the main page with a success message
       return Redirect::to('/')->with('success','Image info successfully updated');

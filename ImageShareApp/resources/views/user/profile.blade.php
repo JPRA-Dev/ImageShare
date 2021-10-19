@@ -42,9 +42,9 @@
                         Update Profile Background
                       </button>
                     </a>
-                    <a href="{{ route('password.request') }}">
+                    <a href="{{ URL::to('/changeEmail') }}">
                       <button action="/editProfileBGImage" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
-                        Confirm Email
+                        Change Email
                       </button>
                     </a>
                     {{-- <button class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">

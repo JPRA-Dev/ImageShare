@@ -62,7 +62,10 @@ class UserController extends Controller
 
     }
 
- 
+    public function errorHandler(){
+        return view('layouts.error');
+    }
+
 
 
 

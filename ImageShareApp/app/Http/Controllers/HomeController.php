@@ -59,4 +59,27 @@ class HomeController extends Controller
         return redirect('/profile/'.Auth()->user()->name);
     }
 
+    public function getchangeEmail()
+    {
+        return view('user.changeEmail', array('user' => Auth::user()));
+    }
+
+
+
+    public function changeEmail(Request $request){
+        //validation rules
+
+        $request->validate([
+            'email' => ['string', 'max:50']
+        ]);
+        
+        $user = User::find(auth()->user()->id);
+        $user->email = $request['email'];
+        $user->email_verified_at = 'null';
+        
+        $user->update();
+        
+        return redirect('/profile/'.Auth()->user()->name);
+    }
+
 }
