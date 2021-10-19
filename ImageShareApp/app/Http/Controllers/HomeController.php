@@ -75,7 +75,7 @@ class HomeController extends Controller
         
         $user = User::find(auth()->user()->id);
         $user->email = $request['email'];
-        $user->email_verified_at = 'null';
+        $user->email_verified_at = null;
         
         $user->update();
         

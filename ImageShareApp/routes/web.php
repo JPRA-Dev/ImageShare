@@ -26,8 +26,11 @@ use App\User;
 // //This is for the get event of the index page
 Route::get('/upload/image',[ImageController::class,'getIndex'])->middleware('auth');
 // //This is for the post event of the index.page
-Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('auth')->middleware('verified');
-// //Route::post('/',array('as'=>'index_page_post','before' =>'csrf', 'uses'=>'ImageController@postIndex'));
+
+
+Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('auth');
+// Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('auth')->middleware('verified');
+
 
 //This is to show the image's permalink on our website
 Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
@@ -81,7 +84,9 @@ Route::put('/editProfileInfo', [HomeController::class, 'profileUpdate'])->middle
 Route::get('/error/{error}',[UserController::class,'errorHandler']);
 
 
-Route::get('/changeEmail',[HomeController::class,'getchangeEmail'])->middleware('auth')->middleware('password.confirm');
+Route::get('/changeEmail',[HomeController::class,'getchangeEmail'])->middleware('auth');
+
+Route::put('/changeEmail',[HomeController::class,'changeEmail'])->middleware('auth')->middleware('password.confirm');
 
 
 
