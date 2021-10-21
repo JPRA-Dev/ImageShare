@@ -31,8 +31,16 @@ class UserPublicProfileController extends Controller
             $userCheck = false;
         }
 
-        $userImages = Photo::find($user);
+
+        // $userImages = Photo::find($user);
+        $userImages = DB::table('photos')->where('user', '=',  $user->id )->get();
         // return view('user.profile', ['user' => $user, 'userCheck' => $userCheck]);
-        return view('user.profile',compact('user', 'userCheck'))->with('userImages', $userImages);
+
+
+        $imageCount = count(DB::table('photos')->where('user', '=',  $user->id )->get());
+
+        return view('user.profile',compact('user', 'userCheck'))
+            ->with('userImages', $userImages)
+            ->with('imageCount', $imageCount);
     }
 }

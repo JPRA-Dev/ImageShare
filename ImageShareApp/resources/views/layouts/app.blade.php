@@ -16,13 +16,12 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
     <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
 
 </head>
 
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
-    <div id="app">
+    
         <header class="bg-blue-900 py-6">
             <div class="container mx-auto flex justify-between items-center px-6">
                 <div>
@@ -63,7 +62,7 @@
         </header>
 
         @yield('content')
-    </div>
+   
     {{-- <footer class="relative bg-blueGray-200 pt-8 pb-6 mt-8">
     </footer> --}}
 </body>

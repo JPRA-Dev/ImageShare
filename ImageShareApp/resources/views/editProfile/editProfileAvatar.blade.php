@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="profile-page">
+<main class="profile-page h-full bg-blue-900">
     <section class="relative block h-500-px">
       <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
               background-image: url('/uploads/bgImages/{{ $user->bgImage }}');

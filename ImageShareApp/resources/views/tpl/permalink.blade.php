@@ -67,35 +67,13 @@
           </div>
           @endif
 
-          <div class="px-8 mb-4 text-center">
-            <h5 class="pt-4 mb-2 text-xl "><a href="{{URL::to('snatch/'.$lastPageNumber)}}" class="hover:text-gray-600 text-gray-700">Last image</a>   |   <a href="{{URL::to('snatch/'.$nextPageNumber)}}" class="hover:text-gray-600 text-gray-700">Next Image</a></h5>
+          <div class="px-8 mb-4 text-center" style="margin-top: 50px;">
+            <h5 class="pt-4 mb-2 text-xl "><a href="{{URL::to('snatch/'.$lastId)}}" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">
+              Last image</a>|          <a href="{{URL::to('snatch/'.$nextId)}}" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">
+              Next Image</a></h5>
             <br>
           </div>
-          {{-- <div class="mb-6 text-center">
-            <button
-              class="w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700 focus:outline-none focus:shadow-outline"
-              type="button"
-            >
-              Reset Password
-            </button>
-          </div>
-          <hr class="mb-6 border-t" />
-          <div class="text-center">
-            <a
-              class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-              href="./register.html"
-            >
-              Create an Account!
-            </a>
-          </div>
-          <div class="text-center">
-            <a
-              class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-              href="./index.html"
-            >
-              Already have an account? Login!
-            </a>
-          </div> --}}
+
       </div>
     </div>
   </div>

@@ -87,7 +87,7 @@
                         {{ __("Edit Website") }}:
                     </label>
 
-                    <input id="website" type="text" class="form-input w-full @error('website')  border-red-500 @enderror"
+                    <input id="website" type="url" class="form-input w-full @error('website')  border-red-500 @enderror"
                         name="website" value="{{ $user->website }}">
                   </div>
 

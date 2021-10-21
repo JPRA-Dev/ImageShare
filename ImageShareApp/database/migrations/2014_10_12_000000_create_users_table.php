@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('town')->default('Town');;
             $table->string('country')->default('Country');;
             $table->string('work')->default('My Work');;
-            $table->string('website')->default('My Website');;
+            $table->string('website')->default('https://www.MyWebsite.com');
             $table->string('avatar')->default('default.jpg');
             $table->string('bgImage')->default('default.jpeg');
             $table->rememberToken();

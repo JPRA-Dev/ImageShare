@@ -123,17 +123,32 @@ class ImageController extends Controller {
 
 public function getSnatch($id) {
     //Let's try to find the image from database first
-    $image = Photo::find($id);
+    $image = Photo::find($id)->paginate(1);
+    $imageThumb = Photo::find($id);
     $user = User::find($image->user);
     // $user = User::where('id', $userID)->first();
-    $lastPageNumber = $id - 1;
-    $nextPageNumber = $id + 1;
-    if ($lastPageNumber < 1) {
+    $lastId = Photo::where('id', '<', $image->id)->max('id');
+    $nextId = Photo::where('id', '>', $image->id)->min('id');
+    ;
+    // $nextPageNumber = $image->id + 1;
+
+    
+    // $imageCount = count(DB::table('photos')->get());
+    
+
+    if (($lastId === NULL) OR ($nextId === NULL)) {
       Redirect::to('/');
     }
+    
     //If found, we load the view and pass the image info asparameter, else we redirect to main page with errormessage
     if($image) {
-      return View::make('tpl.permalink')->with('image', $image)->with('lastPageNumber', $lastPageNumber)->with('nextPageNumber', $nextPageNumber)->with('user', $user);
+      return View::make('tpl.permalink')
+      ->with('image', $image)
+      ->with('lastId', $lastId)
+      ->with('nextId', $nextId)
+      ->with('user', $user)
+      // ->with('imageCount', $imageCount)
+      ->with('imageThumb', $imageThumb);
     } else {
       return Redirect::to('/')->with('error','Image not found');
     }
