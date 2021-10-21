@@ -123,8 +123,8 @@ class ImageController extends Controller {
 
 public function getSnatch($id) {
     //Let's try to find the image from database first
-    $image = Photo::find($id)->paginate(1);
-    $imageThumb = Photo::find($id);
+    $image = Photo::find($id);
+    $imageThumb = Photo::find($id)->paginate(1);
     $user = User::find($image->user);
     // $user = User::where('id', $userID)->first();
     $lastId = Photo::where('id', '<', $image->id)->max('id');
@@ -158,7 +158,7 @@ public function getSnatch($id) {
 public function getAll(){
 
     //Let's first take all images with a pagination feature
-    $all_images = DB::table('photos')->orderBy('id','desc')->paginate(6);
+    $all_images = DB::table('photos')->orderBy('id','desc')->paginate(8);
   
     //Then let's load the view with found data and pass thevariable to the view
     return View::make('tpl.all_images')->with('images',$all_images);

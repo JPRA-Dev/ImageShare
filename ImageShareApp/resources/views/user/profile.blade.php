@@ -116,33 +116,37 @@
                   {{-- <a href="#pablo" class="font-normal text-pink-500">Show more</a> --}}
                 </div>
               </div>
-                <div class="mt-10 py-10 border-t border-blueGray-200 flex flex-wrap justify-center">
-                  <div class="w-full lg:w-9/12 px-4 ">
-                  
+                
+
+                  @if(count($userImages))
+
+                    <div class="mt-10 py-10 border-t border-blueGray-200 flex flex-wrap justify-center">
+                      <div class="w-full lg:w-9/12 px-4 ">
 
 
+                        <div class="grid place-items-center min-h-screen">
+                          <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-4 lg:gap-6">
+                        
+                            @foreach($userImages as $each)
+                              <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                                  <a href="{{URL::to('snatch/'.$each->id)}}">
+                                    <img
+                                    src="{{URL::to(Config::get('images.thumb_folder').'/'.$each->image)}}"
+                                    class="w-100 shadow-1-strong rounded mb-4 hover:shadow-2xl"
+                                    alt="This image cannot be displayed"/>
+                                  </a>
+                              </div>
+                            @endforeach
 
-                <div class="container mx-auto" style="margin-top: 50px;">
-                  <div class="row">
-
-                    @foreach($userImages as $each)
-                      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                          <a href="{{URL::to('snatch/'.$each->id)}}">
-                            <img
-                            src="{{URL::to(Config::get('images.thumb_folder').'/'.$each->image)}}"
-                            class="w-100 shadow-1-strong rounded mb-4 hover:shadow-2xl"
-                            alt="This image cannot be displayed"/>
-                          </a>
+                        {{-- <p>{{$userImages->links()}}</p> --}}
+                    
+                          </div>
+                        </div>
                       </div>
-                    @endforeach
+                    </div>
 
-                  </div>
-                </div>
+                  @endif
 
-
-
-              </div>
-            </div>
           </div>
         </div>
       </div>
