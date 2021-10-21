@@ -162,6 +162,11 @@ public function getAll(){
   
     //Then let's load the view with found data and pass thevariable to the view
     return View::make('tpl.all_images')->with('images',$all_images);
+
+    $likes = Photo::with('user')
+    ->orderBy('posted_at', 'desc')
+    ->get();
+return view('home', ['likes' => $likes]);
 }
 
 public function getDelete($id) {

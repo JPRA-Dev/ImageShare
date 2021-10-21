@@ -66,6 +66,14 @@
           </a>
           </div>
           @endif
+          <div class="px-8 mb-4 text-center" style="margin-top: 50px;">
+            <button class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                Like
+            </button>
+            <button class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                Dislike
+            </button>
+          </div>
 
           <div class="px-8 mb-4 text-center" style="margin-top: 50px;">
             <h5 class="pt-4 mb-2 text-xl "><a href="{{URL::to('snatch/'.$lastId)}}" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">
