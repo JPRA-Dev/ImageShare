@@ -7,7 +7,9 @@
     <div class="w-full xl:w-3/4 lg:w-11/12 flex">
       <!-- Col -->
       <div>
-    {{Html::image(Config::get('images.thumb_folder').'/'.$image->image)}}
+        <a href="{{URL::to(Config::get('images.upload_folder').'/'.$image->image)}}" target="_blank">
+          {{Html::image(Config::get('images.thumb_folder').'/'.$image->image)}}
+        </a>
       </div>
       <!-- Col -->
       <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
@@ -16,7 +18,13 @@
           <br>
         </div>
         <div class="px-8 mb-4 text-center">
-          <h3 class="pt-4 mb-2 text-xl">Uploaded by: <a class="no-underline hover:underline text-gray-700 hover:text-gray-600" href="/profile/{{$user->name}}">{{$user->name}}</a></h3>
+
+          @if ($user === NULL)
+            <h3 class="pt-4 mb-2 text-xl">Uploaded by: <a class="no-underline hover:underline text-gray-700 hover:text-gray-600">Unknown User</a></h3>
+          @else
+            <h3 class="pt-4 mb-2 text-xl">Uploaded by: <a class="no-underline hover:underline text-gray-700 hover:text-gray-600" href="/profile/{{$user->name}}">{{$user->name}}</a></h3>
+          @endif
+
           <br>
         </div>
           <div class="mb-4">

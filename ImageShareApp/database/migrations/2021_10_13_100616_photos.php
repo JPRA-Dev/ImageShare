@@ -19,7 +19,6 @@ class Photos extends Migration
             $table->string('image',500)->default('');//the column that holds the image's filename
             $table->string('description',200)->default('');
             $table->string('user')->default('');
-            $table->integer('likes')->default(0);
             $table->timestamps();
         });
     }

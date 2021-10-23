@@ -46,6 +46,13 @@ Route::get('/editImage/{photo:id}', [ImageController::class, 'getEditImage'])->m
 
 Route::put('/editImage/{photo:id}', [ImageController::class, 'editImage'])->middleware('auth');
 
+Route::get('/profile/deleteAccount', [HomeController::class, 'getDeleteUser'])->middleware('auth');
+Route::post('/profile/deleteAccount', [HomeController::class, 'deleteUserCheck'])->middleware('auth');
+
+Route::get('/profile/deleteAccountImages', [HomeController::class, 'keepImagesUser'])->middleware('auth');
+Route::delete('/profile/deleteAccountImages', [HomeController::class, 'deleteUser'])->middleware('auth');
+
+
 //This route is to delete the image with the given ID
 Route::get('/delete/{id}',[ImageController::class,'getDelete'])->where('id', '[0-9]+')->middleware('auth')->middleware('password.confirm');
 //Route::get('delete/{id}', array('as'=>'delete_image','uses'=>'ImageController@getDelete'))->where('id', '[0-9]+');

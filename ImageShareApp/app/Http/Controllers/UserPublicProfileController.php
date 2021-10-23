@@ -37,7 +37,7 @@ class UserPublicProfileController extends Controller
         // return view('user.profile', ['user' => $user, 'userCheck' => $userCheck]);
 
 
-        $imageCount = count(DB::table('photos')->where('user', '=',  $user->id )->get());
+        $imageCount = count($userImages);
 
         return view('user.profile',compact('user', 'userCheck'))
             ->with('userImages', $userImages)

@@ -7,6 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Flight;
 use Illuminate\Support\Facades\Auth;
 use  App\Models\User; 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use App\Models\Photo;
+
+use App\config\images;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+
+use Illuminate\Support\Facades\Hash;
+
+use Intervention\Image\Facades\Image As Image;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Str;
+
+use Illuminate\Support\Facades\File;
 
 
 class HomeController extends Controller
@@ -81,5 +98,57 @@ class HomeController extends Controller
         
         return redirect('/profile/'.Auth()->user()->name);
     }
+
+
+    public function getDeleteUser()
+    {
+        return view('auth.deleteUserAccountVerify');
+    }
+
+    public function keepImagesUser()
+    {
+        return view('auth.deleteUserImagesVerify');
+    }
+
+
+    public function deleteUserCheck(Request $request) {
+
+      if ($request['yes'] == "yes") {
+
+        return redirect("/profile/deleteAccountImages");
+        
+      } else {
+
+        return redirect('/profile/'.Auth()->user()->name);
+      }
+    }
+
+
+    public function deleteUser(Request $request) {
+
+        $user = User::find(auth()->user()->id);
+        $userImages = DB::table('photos')->where('user', '=',  $user->id )->get();
+
+        if ($request['no'] == "no"){
+            foreach ($userImages as $each) {
+                $each->delete();     
+            }
+        $user->delete();
+
+        } else {
+            // foreach ($userImages as $each) {
+            //     $each->user = "0";
+            //     $each->update();     
+            // }
+            
+        $user->delete();
+        }
+
+        return redirect('/');
+
+    }
+
+
+
 
 }

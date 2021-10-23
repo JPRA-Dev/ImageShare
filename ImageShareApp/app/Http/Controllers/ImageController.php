@@ -126,6 +126,8 @@ public function getSnatch($id) {
     $image = Photo::find($id);
     $imageThumb = Photo::find($id)->paginate(1);
     $user = User::find($image->user);
+    
+
     // $user = User::where('id', $userID)->first();
     $lastId = Photo::where('id', '<', $image->id)->max('id');
     $nextId = Photo::where('id', '>', $image->id)->min('id');
@@ -139,6 +141,7 @@ public function getSnatch($id) {
     if (($lastId === NULL) OR ($nextId === NULL)) {
       Redirect::to('/');
     }
+    
     
     //If found, we load the view and pass the image info asparameter, else we redirect to main page with errormessage
     if($image) {
