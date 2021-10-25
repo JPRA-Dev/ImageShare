@@ -73,7 +73,7 @@ class HomeController extends Controller
         $user->description = $request['description'];
         $user->update();
         
-        return redirect('/profile/'.Auth()->user()->name);
+        return redirect('/profile/'.$request['name']);
     }
 
     public function getchangeEmail()

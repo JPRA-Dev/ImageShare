@@ -20,7 +20,7 @@ class UserPublicProfileController extends Controller
     public function profile($name)
     {
         //Let's first take all images with a pagination feature
-
+        
         // User::where('name', $name)->first();
         $user = User::where('name', $name)->first();
         if (Auth::guest()){
