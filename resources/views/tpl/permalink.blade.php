@@ -4,7 +4,7 @@
 <div class="container mx-auto">
   <div class="flex justify-center px-6 my-12">
     <!-- Row -->
-    <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+    <div class="w-full xl:w-3/4 lg:w-11/12 lg:mx-16 flex">
       <!-- Col -->
       <div>
         <a href="{{URL::to(Config::get('images.upload_folder').'/'.$image->image)}}" target="_blank">

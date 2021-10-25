@@ -20,7 +20,7 @@
           <div class="px-6">
             <div class="img-overlay">
               <a href={{URL::to("snatch/$image->id")}}>
-            <button type="button" class="btn btn-secondary bg-blue-900 float-right" style="margin-top: 10px;">
+            <button type="button" class="select-none whitespace-no-wrap p-2 rounded-lg text-base leading-normal no-underline text-white bg-blue-900 hover:bg-white sm:py-4 hover:text-blue-900 hover:shadow-md shadow  rounded outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 float-right" style="margin-top: 10px;">
               Cancel
             </button>
               </a>
@@ -64,22 +64,24 @@
                         class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg uppercase text-base leading-normal no-underline text-white bg-blue-900 hover:bg-white sm:py-4 hover:text-blue-900 hover:shadow-md shadow text-xs px-4 rounded outline-none focus:outline-none mb-1 ease-linear transition-all duration-150">
                         Save Image
                     </button>
-                </div>
+                  </div>
 
                 </form>
 
-                <div class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8">
-                <div class="flex flex-wrap">
-                </a>
-                <a href={{URL::to("delete/$image->id")}}>
-                  <button type="submit"
-                      class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg uppercase text-base leading-normal no-underline text-white bg-blue-900 hover:bg-white sm:py-4 hover:text-blue-900 hover:shadow-md shadow text-xs px-4 rounded outline-none focus:outline-none mb-1 ease-linear transition-all duration-150">
-                      Delete Image
-                  </button>
-                </a>
+                
+                  <div class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8">
+                  <div class="flex flex-wrap">
+              
+                  <a href={{URL::to("delete/$image->id")}}>
+                    <button type="submit"
+                        class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg uppercase text-base leading-normal no-underline text-white bg-blue-900 hover:bg-white sm:py-4 hover:text-blue-900 hover:shadow-md shadow text-xs px-4 rounded outline-none focus:outline-none mb-1 ease-linear transition-all duration-150">
+                        Delete Image
+                    </button>
+                  </a>
+                  </div>
                 </div>
               </div>
-              </div>
+           
              
               </div>
             </div>

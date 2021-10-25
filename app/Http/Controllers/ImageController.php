@@ -177,7 +177,7 @@ public function getSnatch($id) {
 public function getAll(){
 
     //Let's first take all images with a pagination feature
-    $all_images = DB::table('photos')->orderBy('id','desc')->paginate(8);
+    $all_images = DB::table('photos')->orderBy('id','desc')->paginate(4);
   
     //Then let's load the view with found data and pass thevariable to the view
     return View::make('tpl.all_images')->with('images',$all_images);
