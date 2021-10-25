@@ -38,7 +38,7 @@ return [
             'transport' => 'smtp',
             'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 465),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
             'username' => env('MAIL_USERNAME', 'jpandrade.dev.test@gmail.com'),
             'password' => env('MAIL_PASSWORD', 'pgbzyqilufudbflo'),
             'timeout' => null,
