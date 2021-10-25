@@ -9,8 +9,10 @@
                 <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
                     Would you like to leave your uploaded images on the website after deleting your account?
                 </header>
-                    
-                <p class="leading-normal text-gray-500">The uploader will be set as an "unknown user"</p>
+
+                <div class=" py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
+                    <p class="leading-normal text-gray-500">The uploader will be set as an "unknown user"</p>
+                </div>
                 
                 <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="/profile/deleteAccountImages">
                     @csrf
