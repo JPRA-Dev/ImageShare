@@ -17,7 +17,7 @@
           </div>
         @endforeach
       </div>
-      <p class="grid place-items-center mt-15 mb-15">{{$images->links()}}</p>
+      <p class="grid place-items-center mb-10">{{$images->links()}}</p>
    
     @else
     {{--If no images are found on the database, it will show a 'no image found' error message--}}
