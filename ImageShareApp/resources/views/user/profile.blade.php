@@ -21,7 +21,7 @@
             <div class="flex flex-wrap justify-center">
               <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center" style="margin-bottom: 100px;">
                 <div class="relative">
-                  <img src="/uploads/avatars/{{ $user->avatar }}" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                  <img src="/uploads/avatars/{{ $user->avatar }}" class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                 </div>
               </div>
               

@@ -20,9 +20,7 @@
           <div class="px-6">
             <div class="flex flex-wrap justify-center">
               <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                  
-                </div>
+            
                 <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8"
                   action="/editProfileInfo" method="POST">
                     @csrf

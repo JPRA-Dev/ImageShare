@@ -127,12 +127,24 @@ class HomeController extends Controller
     public function deleteUser(Request $request) {
 
         $user = User::find(auth()->user()->id);
-        $userImages = DB::table('photos')->where('user', '=',  $user->id )->get();
+        $images = DB::table('photos')->where('user', '=',  $user)->get();
+
+        // $image = Photo::find($user);
+        // $image = Photo::where('user', $user);
+  
+        // //If there's an image, we will continue to the deletingprocess
+        // if($image) {
+  
+          
+    
 
         if ($request['no'] == "no"){
-            foreach ($userImages as $each) {
+            foreach ($images as $each) {
+                File::delete(Config::get('image.upload_folder').'/'.$each->image);
+                File::delete(Config::get('image.thumb_folder').'/'.$each->image);
                 $each->delete();     
             }
+        
         $user->delete();
 
         } else {

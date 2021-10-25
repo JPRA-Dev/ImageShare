@@ -28,13 +28,19 @@ class ImageController extends Controller {
   public function getIndex()
   {
     //Let's load the form view
-    return view('tpl.uploadImage');
+    $user = User::find(auth()->user()->id);
+    return view('tpl.uploadImage')->with('user', $user);;
   }
 
   public function getEditImage($id)
   {
     $image = Photo::find($id);
     //Let's load the form view
+
+    if(!$image) {
+      abort(404);
+    }
+
     return view('tpl.editImage')->with('image',$image);
   }
 
@@ -113,7 +119,8 @@ class ImageController extends Controller {
       );
 
       //Now we redirect to the image's permalink
-      return Redirect::to(URL::to('snatch/'.$insert_id))->with('success','Your image was uploaded successfully!');
+      return Redirect::to(URL::to('snatch/'.$insert_id))
+      ->with('success','Your image was uploaded successfully!');
     } else {
       //image cannot be uploaded
       return Redirect::to('/')->withInput()->with('error','Sorry, the image could not be uploaded, please try again later.');
@@ -124,6 +131,11 @@ class ImageController extends Controller {
 public function getSnatch($id) {
     //Let's try to find the image from database first
     $image = Photo::find($id);
+
+    if(!$image) {
+      abort(404);
+    }
+
     $imageThumb = Photo::find($id)->paginate(1);
     $user = User::find($image->user);
     
@@ -131,15 +143,19 @@ public function getSnatch($id) {
     // $user = User::where('id', $userID)->first();
     $lastId = Photo::where('id', '<', $image->id)->max('id');
     $nextId = Photo::where('id', '>', $image->id)->min('id');
-    ;
+    
     // $nextPageNumber = $image->id + 1;
-
+    
+    $maxId = Photo::find($id)->max('id');
+    $minId = Photo::find($id)->min('id');
     
     // $imageCount = count(DB::table('photos')->get());
     
 
-    if (($lastId === NULL) OR ($nextId === NULL)) {
-      Redirect::to('/');
+    if ($lastId < $minId) {
+      $lastId = $maxId;
+    } else if ($nextId > $maxId) {
+      $nextId = $minId;
     }
     
     
@@ -175,6 +191,10 @@ return view('home', ['likes' => $likes]);
 public function getDelete($id) {
     //Let's first find the image
     $image = Photo::find($id);
+
+    if(!$image) {
+      abort(404);
+    }
   
     //If there's an image, we will continue to the deletingprocess
     if($image) {

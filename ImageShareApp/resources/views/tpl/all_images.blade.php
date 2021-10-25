@@ -16,14 +16,16 @@
               </a>
           </div>
         @endforeach
-
-
-    <p>{{$images->links()}}</p>
+      </div>
+      <p class="grid place-items-center mt-15 mb-15">{{$images->links()}}</p>
+   
     @else
     {{--If no images are found on the database, it will show a 'no image found' error message--}}
     <p>No images uploaded yet, {{Html::link('/','care to upload one?')}}</p>
-    @endif
   </div>
+    @endif
+  
+  
 </div>
 
 
