@@ -28,7 +28,7 @@ Route::get('/upload/image',[ImageController::class,'getIndex'])->middleware('aut
 // //This is for the post event of the index.page
 
 
-Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('auth');
+Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('auth')->middleware('verified');
 // Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('auth')->middleware('verified');
 
 
@@ -44,17 +44,17 @@ Route::get('/',[ImageController::class,'getAll'])->name('home');
 
 Route::get('/editImage/{photo:id}', [ImageController::class, 'getEditImage'])->middleware('auth');
 
-Route::put('/editImage/{photo:id}', [ImageController::class, 'editImage'])->middleware('auth');
+Route::put('/editImage/{photo:id}', [ImageController::class, 'editImage'])->middleware('auth')->middleware('verified');
 
 Route::get('/profile/deleteAccount', [HomeController::class, 'getDeleteUser'])->middleware('auth');
-Route::post('/profile/deleteAccount', [HomeController::class, 'deleteUserCheck'])->middleware('auth');
+Route::post('/profile/deleteAccount', [HomeController::class, 'deleteUserCheck'])->middleware('auth')->middleware('verified');
 
 Route::get('/profile/deleteAccountImages', [HomeController::class, 'keepImagesUser'])->middleware('auth');
-Route::delete('/profile/deleteAccountImages', [HomeController::class, 'deleteUser'])->middleware('auth');
+Route::delete('/profile/deleteAccountImages', [HomeController::class, 'deleteUser'])->middleware('auth')->middleware('verified');
 
 
 //This route is to delete the image with the given ID
-Route::get('/delete/{id}',[ImageController::class,'getDelete'])->where('id', '[0-9]+')->middleware('auth')->middleware('password.confirm');
+Route::get('/delete/{id}',[ImageController::class,'getDelete'])->where('id', '[0-9]+')->middleware('auth')->middleware('verified')->middleware('password.confirm');
 //Route::get('delete/{id}', array('as'=>'delete_image','uses'=>'ImageController@getDelete'))->where('id', '[0-9]+');
 
 Auth::routes(['verify' => true]);
@@ -93,7 +93,14 @@ Route::get('/error/{error}',[UserController::class,'errorHandler']);
 
 Route::get('/changeEmail',[HomeController::class,'getchangeEmail'])->middleware('auth');
 
-Route::put('/changeEmail',[HomeController::class,'changeEmail'])->middleware('auth')->middleware('password.confirm');
+Route::put('/changeEmail',[HomeController::class,'changeEmail'])->middleware('auth')->middleware('verified')->middleware('password.confirm');
+
+
+
+
+
+
+
 
 
 
