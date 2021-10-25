@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('firstName');
             $table->string('lastName');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('town')->default('Town');;
             $table->string('country')->default('Country');;
             $table->string('work')->default('My Work');;
-            $table->string('website')->default('My Website');;
+            $table->string('website')->default('https://www.MyWebsite.com');
             $table->string('avatar')->default('default.jpg');
             $table->string('bgImage')->default('default.jpeg');
             $table->rememberToken();

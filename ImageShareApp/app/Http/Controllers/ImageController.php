@@ -28,13 +28,19 @@ class ImageController extends Controller {
   public function getIndex()
   {
     //Let's load the form view
-    return view('tpl.uploadImage');
+    $user = User::find(auth()->user()->id);
+    return view('tpl.uploadImage')->with('user', $user);;
   }
 
   public function getEditImage($id)
   {
     $image = Photo::find($id);
     //Let's load the form view
+
+    if(!$image) {
+      abort(404);
+    }
+
     return view('tpl.editImage')->with('image',$image);
   }
 
@@ -113,7 +119,8 @@ class ImageController extends Controller {
       );
 
       //Now we redirect to the image's permalink
-      return Redirect::to(URL::to('snatch/'.$insert_id))->with('success','Your image was uploaded successfully!');
+      return Redirect::to(URL::to('snatch/'.$insert_id))
+      ->with('success','Your image was uploaded successfully!');
     } else {
       //image cannot be uploaded
       return Redirect::to('/')->withInput()->with('error','Sorry, the image could not be uploaded, please try again later.');
@@ -124,15 +131,43 @@ class ImageController extends Controller {
 public function getSnatch($id) {
     //Let's try to find the image from database first
     $image = Photo::find($id);
-    $user = User::find($image->user);
-    $lastPageNumber = $id - 1;
-    $nextPageNumber = $id + 1;
-    if ($lastPageNumber < 1) {
-      Redirect::to('/');
+
+    if(!$image) {
+      abort(404);
     }
+
+    $imageThumb = Photo::find($id)->paginate(1);
+    $user = User::find($image->user);
+    
+
+    // $user = User::where('id', $userID)->first();
+    $lastId = Photo::where('id', '<', $image->id)->max('id');
+    $nextId = Photo::where('id', '>', $image->id)->min('id');
+    
+    // $nextPageNumber = $image->id + 1;
+    
+    $maxId = Photo::find($id)->max('id');
+    $minId = Photo::find($id)->min('id');
+    
+    // $imageCount = count(DB::table('photos')->get());
+    
+
+    if ($lastId < $minId) {
+      $lastId = $maxId;
+    } else if ($nextId > $maxId) {
+      $nextId = $minId;
+    }
+    
+    
     //If found, we load the view and pass the image info asparameter, else we redirect to main page with errormessage
     if($image) {
-      return View::make('tpl.permalink')->with('image',$image)->with('lastPageNumber', $lastPageNumber)->with('nextPageNumber', $nextPageNumber)->with('user', $user);
+      return View::make('tpl.permalink')
+      ->with('image', $image)
+      ->with('lastId', $lastId)
+      ->with('nextId', $nextId)
+      ->with('user', $user)
+      // ->with('imageCount', $imageCount)
+      ->with('imageThumb', $imageThumb);
     } else {
       return Redirect::to('/')->with('error','Image not found');
     }
@@ -142,15 +177,24 @@ public function getSnatch($id) {
 public function getAll(){
 
     //Let's first take all images with a pagination feature
-    $all_images = DB::table('photos')->orderBy('id','desc')->paginate(6);
+    $all_images = DB::table('photos')->orderBy('id','desc')->paginate(8);
   
     //Then let's load the view with found data and pass thevariable to the view
     return View::make('tpl.all_images')->with('images',$all_images);
+
+    $likes = Photo::with('user')
+    ->orderBy('posted_at', 'desc')
+    ->get();
+return view('home', ['likes' => $likes]);
 }
 
 public function getDelete($id) {
     //Let's first find the image
     $image = Photo::find($id);
+
+    if(!$image) {
+      abort(404);
+    }
   
     //If there's an image, we will continue to the deletingprocess
     if($image) {

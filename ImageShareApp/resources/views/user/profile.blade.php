@@ -21,11 +21,13 @@
             <div class="flex flex-wrap justify-center">
               <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center" style="margin-bottom: 100px;">
                 <div class="relative">
-                  <img src="/uploads/avatars/{{ $user->avatar }}" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                  <img src="/uploads/avatars/{{ $user->avatar }}" class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                 </div>
               </div>
+              
+              
               @if ($userCheck)
-              <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
+              <div class="w-full lg:w-4/12 px-4 lg:order-3">
                 <div class="py-6 px-3 mt-32 sm:mt-0">
                     <a href="/editProfileInfo">  
                       <button action="/editProfileInfo" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
@@ -47,24 +49,46 @@
                         Change Email
                       </button>
                     </a>
-                    {{-- <button class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
-                    <a class="no-underline hover:underline text-white" href="{{ route('verify') }}" style="margin-left:7px; margin-right:7px">{{ __('Login') }}</a>
-                    </button> --}}
-                  </a>
+                    <a href="{{ URL::to('profile/deleteAccount') }}">
+                      <button action="/profile/deleteAccount" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                        Delete Account
+                      </button>
+                    </a>
+
+                    
+                  
+                  
                 </div>
               </div>
-              @endif
               <div class="w-full lg:w-4/12 px-4 lg:order-1">
                 <div class="flex justify-center py-4 lg:pt-4 pt-8">
                     <div class="mr-4 p-3 text-center">
                       <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span class="text-sm text-blueGray-400">Likes</span>
                     </div>
                     <div class="mr-4 p-3 text-center">
-                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span><span class="text-sm text-blueGray-400">Images</span>
+                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageCount}}</span><span class="text-sm text-blueGray-400">Images Uploaded</span>
                     </div>
                   </div>
               </div>
             </div>
+              @else
+              <div class="w-full lg:w-4/12 px-4 lg:order-3">
+                <div class="flex justify-center py-4 lg:pt-4 pt-8">
+                  <div class="mr-4 p-3 text-center">
+                    <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageCount}}</span><span class="text-sm text-blueGray-400">Images Uploaded</span>
+                  </div>
+                </div>
+              </div>
+              <div class="w-full lg:w-4/12 px-4 lg:order-1">
+                <div class="flex justify-center py-4 lg:pt-4 pt-8">
+                    <div class="mr-4 p-3 text-center">
+                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span class="text-sm text-blueGray-400">Likes</span>
+                    </div>
+                    
+                  </div>
+              </div>
+            </div>
+            @endif
             <div class="text-center mt-12">
               <h3 class="text-4xl font-semibold leading-normal text-blueGray-700">
                 {{$user->name}}
@@ -81,7 +105,13 @@
                 <i class="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>{{$user->work}}
               </div>
               <div class="mb-2 text-blueGray-600">
-                <i class="fas fa-link mr-2 text-lg text-blueGray-400"></i>{{$user->website}}
+                @if ($user->website == "https://www.MyWebsite.com")
+                  <a href="{{URL::current()}}">
+                @else
+                  <a href="{{$user->website}}">
+                @endif
+                  <i class="fas fa-link mr-2 text-lg text-blueGray-400"></i>{{$user->website}}
+                  </a>
               </div>
             </div>
             <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
@@ -92,29 +122,38 @@
                   </p>
                   {{-- <a href="#pablo" class="font-normal text-pink-500">Show more</a> --}}
                 </div>
-
-
-
-                <div class="container mx-auto" style="margin-top: 50px;">
-                  <div class="row">
-                    @foreach($userImages as $each)
-                      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                          <a href="{{URL::to('snatch/'.$each->id)}}">
-                            <img
-                            src="{{URL::to(Config::get('images.thumb_folder').'/'.$each->image)}}"
-                            class="w-100 shadow-1-strong rounded mb-4 hover:shadow-2xl"
-                            alt="This image cannot be displayed"
-                            />
-                          </a>
-                      </div>
-                    @endforeach
-                  </div>
-                </div>
-
-
-
               </div>
-            </div>
+                
+
+                  @if(count($userImages))
+
+                    <div class="mt-10 py-10 border-t border-blueGray-200 flex flex-wrap justify-center">
+                      <div class="w-full lg:w-9/12 px-4 ">
+
+
+                        <div class="grid place-items-center min-h-screen">
+                          <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-4 lg:gap-6">
+                        
+                            @foreach($userImages as $each)
+                              <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                                  <a href="{{URL::to('snatch/'.$each->id)}}">
+                                    <img
+                                    src="{{URL::to(Config::get('images.thumb_folder').'/'.$each->image)}}"
+                                    class="w-100 shadow-1-strong rounded mb-4 hover:shadow-2xl"
+                                    alt="This image cannot be displayed"/>
+                                  </a>
+                              </div>
+                            @endforeach
+
+                        {{-- <p>{{$userImages->links()}}</p> --}}
+                    
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  @endif
+
           </div>
         </div>
       </div>

@@ -36,7 +36,7 @@ Route::post('/upload/image',[ImageController::class,'postIndex'])->middleware('a
 Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
 //Route::get('snatch/{id}',array('as'=>'get_image_information','uses'=>'ImageController@getSnatch'))->where('id', '[0-9]+');
 
-Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
+// Route::get('snatch/{id}',[ImageController::class,'getSnatch'])->where('id', '[0-9]+');
 
 //This route is to show all images.
 Route::get('/',[ImageController::class,'getAll'])->name('home');
@@ -45,6 +45,13 @@ Route::get('/',[ImageController::class,'getAll'])->name('home');
 Route::get('/editImage/{photo:id}', [ImageController::class, 'getEditImage'])->middleware('auth');
 
 Route::put('/editImage/{photo:id}', [ImageController::class, 'editImage'])->middleware('auth');
+
+Route::get('/profile/deleteAccount', [HomeController::class, 'getDeleteUser'])->middleware('auth');
+Route::post('/profile/deleteAccount', [HomeController::class, 'deleteUserCheck'])->middleware('auth');
+
+Route::get('/profile/deleteAccountImages', [HomeController::class, 'keepImagesUser'])->middleware('auth');
+Route::delete('/profile/deleteAccountImages', [HomeController::class, 'deleteUser'])->middleware('auth');
+
 
 //This route is to delete the image with the given ID
 Route::get('/delete/{id}',[ImageController::class,'getDelete'])->where('id', '[0-9]+')->middleware('auth')->middleware('password.confirm');

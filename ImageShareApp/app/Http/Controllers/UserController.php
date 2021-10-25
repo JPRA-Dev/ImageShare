@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image As Image;
-use  App\Models\User; 
+use  App\Models\User;
+
+use App\Models\Photo;
+use App\config\images;
 
 class UserController extends Controller
 {

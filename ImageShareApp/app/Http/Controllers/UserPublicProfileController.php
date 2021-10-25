@@ -16,12 +16,13 @@ class UserPublicProfileController extends Controller
     {
         $this->middleware('auth', ['except' => [ 'profile']]);
     }
+
     public function profile($name)
     {
         //Let's first take all images with a pagination feature
 
-
-        $user = User::find(auth()->user()->id);
+        // User::where('name', $name)->first();
+        $user = User::where('name', $name)->first();
         if (Auth::guest()){
             $userCheck = false;
         }else if ($user == User::find(auth()->user()->id)) {
@@ -30,8 +31,16 @@ class UserPublicProfileController extends Controller
             $userCheck = false;
         }
 
-        $userImages = Photo::find($user);
+
+        // $userImages = Photo::find($user);
+        $userImages = DB::table('photos')->where('user', '=',  $user->id )->get();
         // return view('user.profile', ['user' => $user, 'userCheck' => $userCheck]);
-        return view('user.profile',compact('user', 'userCheck'))->with('userImages', $userImages);;
+
+
+        $imageCount = count($userImages);
+
+        return view('user.profile',compact('user', 'userCheck'))
+            ->with('userImages', $userImages)
+            ->with('imageCount', $imageCount);
     }
 }

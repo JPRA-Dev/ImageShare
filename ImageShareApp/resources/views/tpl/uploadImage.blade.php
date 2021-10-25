@@ -3,6 +3,7 @@
 
 
 @section('content')
+
 <section class="py-16">
   <div class="container mx-auto px-4 ">
     <div class="flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg">
