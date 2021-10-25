@@ -10,9 +10,9 @@
                     Are you sure you want to delete your account?
                 </header>
                 
-                    <div class=" py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
-                        <p class="leading-normal text-gray-500">Your account will be permanently deleted and you will not be able to recover it after.</p>
-                    </div>
+                <div class=" py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
+                    <p class="leading-normal text-gray-500">Your account will be permanently deleted and you will not be able to recover it after.</p>
+                </div>
 
                 <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="/profile/deleteAccount">
                         @csrf
