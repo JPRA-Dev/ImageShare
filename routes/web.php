@@ -9,7 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserPublicProfileController;
 use Illuminate\Support\Facades\Input;
 use App\User;
-
+use Faker\Provider\Image;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,7 +98,19 @@ Route::put('/changeEmail',[HomeController::class,'changeEmail'])->middleware('au
 
 
 
+/**********   LIKE/UNLIKE SYSTEM   **********/
 
+
+
+// Route::post('/like', [ImageController::class, 'likePost'])->name('like');
+
+Route::post('like/image/{id}', [ImageController::class, 'likeImage'])->name('like');
+
+// Route::post('snatch/{id}/unlike', [ImageController::class, 'unlikeImage'])->name('unlike');
+
+// Route::get('posts', [HomeController::class, 'posts'])->name('posts');
+
+// Route::post('like', [HomeController::class, 'likePost'])->name('like');
 
 
 

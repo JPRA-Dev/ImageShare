@@ -39,8 +39,15 @@ class UserPublicProfileController extends Controller
 
         $imageCount = count($userImages);
 
+     
+            $imageLikes = DB::table("user_follower")->where('following_id', '=',  $userImages->id )->get();
+       
+      
+        $imageLikesCount = count($imageLikes);
+
         return view('user.profile',compact('user', 'userCheck'))
             ->with('userImages', $userImages)
-            ->with('imageCount', $imageCount);
+            ->with('imageCount', $imageCount)
+            ->with('imageLikesCount', $imageLikesCount);
     }
 }

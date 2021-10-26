@@ -74,14 +74,45 @@
           </a>
           </div>
           @endif
+
+          
+
+
+
+          
           <div class="px-8 mb-4 text-center" style="margin-top: 50px;">
-            <button class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
-                Like
-            </button>
-            <button class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
-                Dislike
-            </button>
+            <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8"
+            action={{ url('like/image/'.$image->id) }} method="POST">
+              @csrf
+
+              <div>
+                Likes: {{$imageLikesCount}}
+              </div>
+              
+            @if(Auth::user()->isFollowing($image))
+
+              
+                <button type="submit" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                    Unlike Image
+                </button>       
+
+            @else
+
+                <button type="submit" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                    Like Image
+                </button>
+             
+  
+            @endif
+            </form>
           </div>
+        
+       
+            
+              
+             
+           
+    
 
           <div class="px-8 mb-4 text-center" style="margin-top: 50px;">
             <h5 class="pt-4 mb-2 text-xl "><a href="{{URL::to('snatch/'.$lastId)}}" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">

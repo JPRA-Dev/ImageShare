@@ -3,27 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Flight;
 use Illuminate\Support\Facades\Auth;
-use  App\Models\User; 
+use App\Models\User; 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 use App\Models\Photo;
 
-use App\config\images;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Input;
-
-use Illuminate\Support\Facades\Hash;
-
-use Intervention\Image\Facades\Image As Image;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Str;
-
-use Illuminate\Support\Facades\File;
 
 
 class HomeController extends Controller
@@ -161,6 +147,26 @@ class HomeController extends Controller
     }
 
 
+    /*********** LIKE SYSTEM **********/
 
+    public function posts()
+    {
+        $posts = Photo::get();
+        return view('user.posts', compact('posts'));
+    }
+
+
+    public function likePost(Request $request){
+
+
+        $image = Photo::find($request->id);
+        
+        $id = Auth::user()->id;
+        $currentUser = User::find($id);
+        $response = $currentUser->toggleFollow($image);
+       
+
+        return response()->json(['success'=>$response]);
+    }
 
 }

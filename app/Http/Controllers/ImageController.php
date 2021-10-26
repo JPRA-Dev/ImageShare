@@ -138,6 +138,17 @@ public function getSnatch($id) {
 
     $imageThumb = Photo::find($id)->paginate(1);
     $user = User::find($image->user);
+
+    $currentUser = User::find(auth()->user()->id);
+
+    // $imageLikes = $image->followers()->count();
+
+    $imageLikes = DB::table("user_follower")->where('following_id', '=',  $image->id )->get();
+      
+
+
+    $imageLikesCount = count($imageLikes);
+
     
 
     // $user = User::where('id', $userID)->first();
@@ -152,6 +163,10 @@ public function getSnatch($id) {
     // $imageCount = count(DB::table('photos')->get());
 
     // ddd($nextId);
+
+
+
+   
     
 
     if ($lastId < $minId) {
@@ -170,7 +185,9 @@ public function getSnatch($id) {
       ->with('lastId', $lastId)
       ->with('nextId', $nextId)
       ->with('user', $user)
-      ->with('imageThumb', $imageThumb);
+      ->with('imageThumb', $imageThumb)
+      ->with('currentUser', $currentUser)
+      ->with('imageLikesCount', $imageLikesCount);
     } else {
       return Redirect::to('/')->with('error','Image not found');
     }
@@ -216,6 +233,36 @@ public function getDelete($id) {
       return Redirect::to('/')->with('error','No image found with given ID');
     }
 }
+
+
+
+/*********** LIKE SYSTEM **********/
+
+
+public function likeImage($id){
+
+
+    $image = Photo::find($id);
+    
+    $idUser = Auth::id();
+    $currentUser = User::find($idUser);
+
+    
+
+    if ($currentUser->isFollowing($image)){
+
+      $currentUser->unfollow($image);
+
+    } else {
+      
+      $currentUser->follow($image);
+
+    }
+    
+    return redirect()->back()->with('success', 'You liked this image.');
+}
+
+
 
 
 }
