@@ -150,11 +150,15 @@ public function getSnatch($id) {
     $minId = Photo::find($id)->min('id');
     
     // $imageCount = count(DB::table('photos')->get());
+
+    // ddd($nextId);
     
 
     if ($lastId < $minId) {
       $lastId = $maxId;
-    } else if ($nextId > $maxId) {
+    }
+    
+    if ($nextId === NULL) {
       $nextId = $minId;
     }
     
@@ -166,7 +170,6 @@ public function getSnatch($id) {
       ->with('lastId', $lastId)
       ->with('nextId', $nextId)
       ->with('user', $user)
-      // ->with('imageCount', $imageCount)
       ->with('imageThumb', $imageThumb);
     } else {
       return Redirect::to('/')->with('error','Image not found');
