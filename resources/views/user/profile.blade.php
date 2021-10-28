@@ -63,7 +63,7 @@
               <div class="w-full lg:w-4/12 px-4 lg:order-1">
                 <div class="flex justify-center py-4 lg:pt-4 pt-8">
                     <div class="mr-4 p-3 text-center">
-                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageLikesCount}}</span><span class="text-sm text-blueGray-400">Likes</span>
+                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageLikesCount}}</span><span class="text-sm text-blueGray-400">Image Likes</span>
                     </div>
                     <div class="mr-4 p-3 text-center">
                       <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageCount}}</span><span class="text-sm text-blueGray-400">Images Uploaded</span>
@@ -82,7 +82,7 @@
               <div class="w-full lg:w-4/12 px-4 lg:order-1">
                 <div class="flex justify-center py-4 lg:pt-4 pt-8">
                     <div class="mr-4 p-3 text-center">
-                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span class="text-sm text-blueGray-400">Likes</span>
+                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageLikesCount}}</span><span class="text-sm text-blueGray-400">Image Likes</span>
                     </div>
                     
                   </div>

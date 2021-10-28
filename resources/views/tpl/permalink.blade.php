@@ -2,17 +2,24 @@
 @section('content')
 <!-- Container -->
 <div class="container mx-auto">
-  <div class="flex justify-center px-6 my-12">
+  <div class=" justify-center px-6 my-12 mx-auto">
     <!-- Row -->
-    <div class="w-full xl:w-3/4 lg:w-11/12 lg:mx-16 flex">
+    <div class="md:hidden  flex justify-center items-center mb-10">
+      <div class="max-w-28">
+        <a href="{{URL::to(Config::get('images.upload_folder').'/'.$image->image)}}" target="_blank">
+          {{Html::image(Config::get('images.thumb_folder').'/'.$image->image)}}
+        </a>
+      </div>
+    </div>
+  <div class="w-full flex">
       <!-- Col -->
-      <div>
+      <div class="hidden md:flex">
         <a href="{{URL::to(Config::get('images.upload_folder').'/'.$image->image)}}" target="_blank">
           {{Html::image(Config::get('images.thumb_folder').'/'.$image->image)}}
         </a>
       </div>
       <!-- Col -->
-      <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+      <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none ">
         <div class="px-8 mb-4 text-center">
           <h3 class="pt-4 mb-2 text-2xl">Title: {{$image->title}}</h3>
           <br>
@@ -27,18 +34,20 @@
 
           <br>
         </div>
+     
+        <div class="container">
           <div class="mb-4">
             <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
               Direct Image URL
             </label>
             <input
-              class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              class="flex justify-center w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               onclick="this.select()"
               type="text"
               value="{{URL::to(Config::get('images.upload_folder').'/'.$image->image)}}"
             />
           </div>
-          <div class="mb-4">
+          <div class="mb-4 ">
             <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
               Thumbnail Forum BBCode
             </label>
@@ -60,7 +69,9 @@
               value="{{html_entity_decode(Html::link(URL::to('snatch/'.$image->id),Html::image(Config::get('images.thumb_folder').'/'.$image->image)))}}"
             />
           </div>
-          <div class="px-8 mb-4 text-center">
+        </div>
+    
+          <div class="px-8 mb-4 text-center" style="margin-top: 50px;">
             <h3 class="pt-4 mb-2 text-xl">Description: {{$image->description}}</h3>
             <br>
           </div>
@@ -73,12 +84,17 @@
             </button>
           </a>
           </div>
-          @endif
+          @endif     
 
-          
+        @guest
 
+        <div class="px-8 mb-4 text-center" style="margin-top: 50px;">
+          <div>
+            Likes: {{$imageLikesCount}}
+          </div>
+        </div>
 
-
+        @else
           
           <div class="px-8 mb-4 text-center" style="margin-top: 50px;">
             <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8"
@@ -90,7 +106,6 @@
               </div>
               
             @if(Auth::user()->isFollowing($image))
-
               
                 <button type="submit" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
                     Unlike Image
@@ -101,23 +116,20 @@
                 <button type="submit" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
                     Like Image
                 </button>
-             
-  
+              
             @endif
             </form>
           </div>
         
-       
+       @endguest
             
-              
-             
-           
-    
-
           <div class="px-8 mb-4 text-center" style="margin-top: 50px;">
-            <h5 class="pt-4 mb-2 text-xl "><a href="{{URL::to('snatch/'.$lastId)}}" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">
-              Last image</a>|          <a href="{{URL::to('snatch/'.$nextId)}}" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">
-              Next Image</a></h5>
+            <h5 class="pt-4 mb-2 text-xl ">
+              <a href="{{URL::to('snatch/'.$lastId)}}" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">
+              Last image</a>|          
+              <a href="{{URL::to('snatch/'.$nextId)}}" class="bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">
+              Next Image</a>
+            </h5>
             <br>
           </div>
 

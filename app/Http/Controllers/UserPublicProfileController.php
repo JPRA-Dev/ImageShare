@@ -36,14 +36,27 @@ class UserPublicProfileController extends Controller
         $userImages = DB::table('photos')->where('user', '=',  $user->id )->get();
         // return view('user.profile', ['user' => $user, 'userCheck' => $userCheck]);
 
+        
 
         $imageCount = count($userImages);
 
+        
+        foreach($userImages as $images) {
+
+            $imageLikes = DB::table("user_follower")->where('following_id', '=',  $images->id )->get();
+
+        }
      
-            $imageLikes = DB::table("user_follower")->where('following_id', '=',  $userImages->id )->get();
-       
+
+        if (isset($imageLikes)) {
+            $imageLikesCount = count($imageLikes);
+        } else {
+            $imageLikesCount = 0;
+        }
+        
+
       
-        $imageLikesCount = count($imageLikes);
+
 
         return view('user.profile',compact('user', 'userCheck'))
             ->with('userImages', $userImages)

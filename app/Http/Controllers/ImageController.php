@@ -138,8 +138,12 @@ public function getSnatch($id) {
 
     $imageThumb = Photo::find($id)->paginate(1);
     $user = User::find($image->user);
-
-    $currentUser = User::find(auth()->user()->id);
+    
+    if (!Auth::guest()){
+      $currentUser = User::find(auth()->user()->id);
+    } else {
+      $currentUser = NULL;
+    }
 
     // $imageLikes = $image->followers()->count();
 
