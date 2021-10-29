@@ -2,7 +2,9 @@
 
 
 @section('content')
+
 <main class="profile-page">
+  
     <section class="relative block h-500-px">
       <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
               background-image: url('/uploads/bgImages/{{ $user->bgImage }}');
@@ -19,7 +21,7 @@
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
           <div class="px-6">
             <div class="flex flex-wrap justify-center">
-              <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center" style="margin-bottom: 100px;">
+              <div class="w-full lg:w-3/12 px-4 lg:order-2 sm:mb-32 md:mb-32 flex justify-center">
                 <div class="relative">
                   <img src="/uploads/avatars/{{ $user->avatar }}" class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                 </div>
@@ -127,12 +129,12 @@
 
                   @if(count($userImages))
 
-                    <div class="mt-10 py-10 border-t border-blueGray-200 flex flex-wrap justify-center">
+                    <div class="border-t border-blueGray-200 flex flex-wrap justify-center">
                       <div class="w-full lg:w-9/12 px-4 ">
 
 
                         <div class="grid place-items-center min-h-screen">
-                          <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-4 lg:gap-6">
+                          <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-2 xl:grid-cols-4 lg:gap-6">
                         
                             @foreach($userImages as $each)
                               <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">

@@ -21,8 +21,14 @@ class UserController extends Controller
 
     public function updateAvatar(Request $request) {
         
+
+        $request->validate([
+            'avatar' => ['file', 'max:2000'],
+        ]);
+
         //Handle the user upload of the avatar
         if($request->hasFile('avatar')) {
+            
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             Image::make($avatar)->resize(300, 300)->save( public_path('uploads/avatars/' . $filename));
@@ -31,11 +37,20 @@ class UserController extends Controller
             $user->avatar = $filename;
             $user->update();
 
+            return redirect('/profile/'.Auth()->user()->name)->with('success', 'Your profile picture was sucessfull updated.');
+
+        } else {
+        
+            return redirect('/profile/'.Auth()->user()->name)->with('error', 'There was a problem uploading your profile picture. Please try again later');
+        
         }
-        return redirect('/profile/'.Auth()->user()->name);
     }
 
     public function updateBGImage(Request $request) {
+
+        $request->validate([
+            'bgImage' => ['file'],
+        ]);
         
         //Handle the user upload of the bg image
         if($request->hasFile('bgImage')) {
@@ -46,8 +61,14 @@ class UserController extends Controller
             $user = User::find(auth()->user()->id);
             $user->bgImage = $filename;
             $user->update();
+
+            return redirect('/profile/'.Auth()->user()->name)->with('success', 'Your background picture was sucessfull updated.');
+
+        } else {
+            
+            return redirect('/profile/'.Auth()->user()->name)->with('error', 'There was a problem uploading your background image. Please try again later');
+        
         }
-        return redirect('/profile/'.Auth()->user()->name);
     }
 
     public function editProfileInfo(){
@@ -65,8 +86,8 @@ class UserController extends Controller
 
     }
 
-    public function errorHandler(){
-        return view('layouts.error');
+    public function getErrorHandler(){
+        return view('errors.error');
     }
 
 

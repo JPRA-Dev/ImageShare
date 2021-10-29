@@ -2,6 +2,7 @@
 
 @section('content')
 <main class="profile-page">
+  
     <section class="relative block h-500-px">
       <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
               background-image: url('/uploads/bgImages/{{ Auth::user()->bgImage }}');
@@ -49,6 +50,13 @@
                         name="title" value="{{ $image->title }}">
                   </div>
 
+                  @if($errors->has('title'))
+                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <span class="block">{{ $errors->first('title') }}</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                  </div>
+                @endif
+
                   <div class="flex flex-wrap">
                     <label for="description" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
                         Edit Image Description
@@ -57,6 +65,13 @@
                     <input id="description" type="text" class="form-input w-full"
                         name="description" value="{{ $image->description }}">
                   </div>
+
+                  @if($errors->has('description'))
+                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <span class="block">{{ $errors->first('description') }}</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                  </div>
+                @endif
 
 
                   <div class="flex flex-wrap">

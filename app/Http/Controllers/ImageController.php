@@ -50,21 +50,20 @@ class ImageController extends Controller {
 
     //If there's an image, we will continue to the editing process
     
-    // $photo->validate([
-    //     'title' => ['string', 'max:20'],
-    //     'description' => ['string', 'max:20']
-    //     //'image' => ['file', 'max:20'],
-    //     //'user' => ['string', 'max:20']
-    // ]);
+    $request->validate([
+        'title' => ['string', 'max:20'],
+        'description' => ['string', 'max:20'],
+    ]);
        
     $photo->title = $request['title'];
     $photo->description = $request['description'];
     // // $image->image = $image->image;
     // // $image->user = $image->user;
     $photo->update();
+
     
       //Let's return to the main page with a success message
-      return Redirect::to('/')->with('success','Image info successfully updated');
+      return Redirect::to('/')->with('success', 'Image info successfully updated');
   
 }
 
@@ -72,13 +71,8 @@ class ImageController extends Controller {
 {
   
   //Let's validate the form first with the rules I did at the model
-  $validation = Validator::make($request->all(),Photo::$upload_rules);
-
-  //If the validation fails, we redirect the user to the index page, with the error messages 
-  if($validation->fails()) {
-    return Redirect::to('/')->withInput()->withErrors($validation);
-  }
-  else {
+  $request->validate(Photo::$upload_rules);
+  
 
     //If the validation passes, we upload the image to the database and process it
     $image = $request->file('image');
@@ -125,7 +119,7 @@ class ImageController extends Controller {
       //image cannot be uploaded
       return Redirect::to('/')->withInput()->with('error','Sorry, the image could not be uploaded, please try again later.');
     }
-  }
+ 
 }
 
 public function getSnatch($id) {
@@ -133,7 +127,7 @@ public function getSnatch($id) {
     $image = Photo::find($id);
 
     if(!$image) {
-      abort(404);
+      abort(404)->with('error', 'Image not found!');
     }
 
     $imageThumb = Photo::find($id)->paginate(1);
@@ -166,12 +160,6 @@ public function getSnatch($id) {
     
     // $imageCount = count(DB::table('photos')->get());
 
-    // ddd($nextId);
-
-
-
-   
-    
 
     if ($lastId < $minId) {
       $lastId = $maxId;
@@ -212,19 +200,20 @@ public function getAll(){
 return view('home', ['likes' => $likes]);
 }
 
+
 public function getDelete($id) {
     //Let's first find the image
     $image = Photo::find($id);
 
     if(!$image) {
-      abort(404);
+      abort(404)->with('error', 'Image not found!');
     }
   
     //If there's an image, we will continue to the deletingprocess
     if($image) {
       //First, let's delete the images from FTP
-      File::delete(Config::get('image.upload_folder').'/'.$image->image);
-      File::delete(Config::get('image.thumb_folder').'/'.$image->image);
+      File::delete(Config::get('images.upload_folder').'/'.$image->image);
+      File::delete(Config::get('images.thumb_folder').'/'.$image->image);
   
       //Now let's delete the value from database
       $image->delete();
@@ -263,7 +252,7 @@ public function likeImage($id){
 
     }
     
-    return redirect()->back()->with('success', 'You liked this image.');
+    return redirect()->back()->with('success', 'You liked this image');
 }
 
 

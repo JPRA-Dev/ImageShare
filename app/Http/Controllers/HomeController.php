@@ -38,15 +38,22 @@ class HomeController extends Controller
         //validation rules
 
         $request->validate([
-            'firstName' => ['string', 'max:20'],
-            'lastName' => ['string', 'max:20'],
-            'name' => ['string', 'max:20'],
-            'town' => ['string', 'max:20'],
-            'work' => ['string', 'max:30'],
-            'country' => ['string', 'max:20'],
-            'website' => ['string', 'max:30'],
-            'description' => ['string', 'max:200'],
+            'firstName' => ['string', 'min:3', 'max:20'],
+            'lastName' => ['string', 'min:3', 'max:20'],
+            'name' => ['string', 'min:3', 'max:20'],
+            'town' => ['string', 'min:3', 'max:20'],
+            'work' => ['string', 'min:3', 'max:30'],
+            'country' => ['string', 'min:3', 'max:20'],
+            'website' => ['string', 'min:5', 'url', 'max:30'],
+            'description' => ['string', 'min:3', 'max:200'],
         ]);
+        
+        // if ($validator->fails()) {
+        //     $message = $validator->errors()->first();
+        // } else {
+        //     $message = "Profile Updated";
+        // }
+
         
         $user = User::find(auth()->user()->id);
         $user->firstName = $request['firstName'];
@@ -59,10 +66,10 @@ class HomeController extends Controller
         $user->description = $request['description'];
         $user->update();
         
-        return redirect('/profile/'.$request['name']);
+        return redirect('/profile/'.$request['name'])->with('success', 'Your info was sucessfull updated');
     }
 
-    public function getchangeEmail()
+    public function getChangeEmail()
     {
         return view('user.changeEmail', array('user' => Auth::user()));
     }
@@ -76,13 +83,14 @@ class HomeController extends Controller
             'email' => ['string', 'max:50']
         ]);
         
+        
         $user = User::find(auth()->user()->id);
         $user->email = $request['email'];
         $user->email_verified_at = null;
         
         $user->update();
         
-        return redirect('/profile/'.Auth()->user()->name);
+        return redirect('/profile/'.Auth()->user()->name)->with('success', 'Your email has been changed! A confirmation has been sent to your new email address.');
     }
 
 
@@ -113,60 +121,31 @@ class HomeController extends Controller
     public function deleteUser(Request $request) {
 
         $user = User::find(auth()->user()->id);
-        $images = DB::table('photos')->where('user', '=',  $user)->get();
+        
+        $images = DB::table('photos')->where('user', '=',  $user->id);
+        $imagesArray = $images->get();
 
-        // $image = Photo::find($user);
-        // $image = Photo::where('user', $user);
-  
-        // //If there's an image, we will continue to the deletingprocess
-        // if($image) {
-  
-          
-    
+   
 
         if ($request['no'] == "no"){
-            foreach ($images as $each) {
-                File::delete(Config::get('image.upload_folder').'/'.$each->image);
-                File::delete(Config::get('image.thumb_folder').'/'.$each->image);
-                $each->delete();     
+            foreach ($imagesArray as $each) {
+                File::delete(Config::get('images.upload_folder').'/'.$each->image);
+                File::delete(Config::get('images.thumb_folder').'/'.$each->image);  
             }
-        
+
+        $images->delete();
         $user->delete();
 
         } else {
-            // foreach ($userImages as $each) {
-            //     $each->user = "0";
-            //     $each->update();     
-            // }
-            
+      
         $user->delete();
+        
         }
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Your profile was deleted!');
 
     }
 
 
-    /*********** LIKE SYSTEM **********/
-
-    public function posts()
-    {
-        $posts = Photo::get();
-        return view('user.posts', compact('posts'));
-    }
-
-
-    public function likePost(Request $request){
-
-
-        $image = Photo::find($request->id);
-        
-        $id = Auth::user()->id;
-        $currentUser = User::find($id);
-        $response = $currentUser->toggleFollow($image);
-       
-
-        return response()->json(['success'=>$response]);
-    }
 
 }

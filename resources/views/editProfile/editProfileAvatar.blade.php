@@ -28,7 +28,15 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">Update Profile Image</label>
                         <input type='file' name='avatar' class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
                         <input type="hidden" name='_token' value="{{ csrf_token() }}" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                     </div>
+                        
+                        @if ($errors->any())
+                          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <span class="block">{{ $errors->first() }}</span>
+                            <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                          </div>
+                        @endif
+                    
+                    </div>
                     <div class="flex flex-wrap">
                         <button type="submit"
                             class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg uppercase text-base leading-normal no-underline text-white bg-blue-900 hover:bg-white sm:py-4 hover:text-blue-900 hover:shadow-md shadow text-xs px-4 rounded outline-none focus:outline-none mb-1 ease-linear transition-all duration-150">
