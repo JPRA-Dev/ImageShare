@@ -2,8 +2,15 @@
 
 @section('content')
 
-<div class="grid place-items-center min-h-screen mt-15 mb-15">
+
+
+
+
+<div class="grid place-items-center min-h-screen mb-15 mx-15 lg:mx-10 md:mx-10">
+
+
   <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-4 lg:gap-6">
+    
 
       @if(count($images))
         @foreach($images as $each)

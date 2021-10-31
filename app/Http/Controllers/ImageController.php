@@ -50,21 +50,20 @@ class ImageController extends Controller {
 
     //If there's an image, we will continue to the editing process
     
-    // $photo->validate([
-    //     'title' => ['string', 'max:20'],
-    //     'description' => ['string', 'max:20']
-    //     //'image' => ['file', 'max:20'],
-    //     //'user' => ['string', 'max:20']
-    // ]);
+    $request->validate([
+        'title' => ['string', 'max:20'],
+        'description' => ['string', 'max:20'],
+    ]);
        
     $photo->title = $request['title'];
     $photo->description = $request['description'];
     // // $image->image = $image->image;
     // // $image->user = $image->user;
     $photo->update();
+
     
       //Let's return to the main page with a success message
-      return Redirect::to('/')->with('success','Image info successfully updated');
+      return Redirect::to('/')->with('success', 'Image info successfully updated');
   
 }
 
@@ -72,13 +71,8 @@ class ImageController extends Controller {
 {
   
   //Let's validate the form first with the rules I did at the model
-  $validation = Validator::make($request->all(),Photo::$upload_rules);
-
-  //If the validation fails, we redirect the user to the index page, with the error messages 
-  if($validation->fails()) {
-    return Redirect::to('/')->withInput()->withErrors($validation);
-  }
-  else {
+  $request->validate(Photo::$upload_rules);
+  
 
     //If the validation passes, we upload the image to the database and process it
     $image = $request->file('image');
@@ -125,7 +119,7 @@ class ImageController extends Controller {
       //image cannot be uploaded
       return Redirect::to('/')->withInput()->with('error','Sorry, the image could not be uploaded, please try again later.');
     }
-  }
+ 
 }
 
 public function getSnatch($id) {
@@ -133,11 +127,26 @@ public function getSnatch($id) {
     $image = Photo::find($id);
 
     if(!$image) {
-      abort(404);
+      abort(404)->with('error', 'Image not found!');
     }
 
     $imageThumb = Photo::find($id)->paginate(1);
     $user = User::find($image->user);
+    
+    if (!Auth::guest()){
+      $currentUser = User::find(auth()->user()->id);
+    } else {
+      $currentUser = NULL;
+    }
+
+    // $imageLikes = $image->followers()->count();
+
+    $imageLikes = DB::table("user_follower")->where('following_id', '=',  $image->id )->get();
+      
+
+
+    $imageLikesCount = count($imageLikes);
+
     
 
     // $user = User::where('id', $userID)->first();
@@ -151,8 +160,6 @@ public function getSnatch($id) {
     
     // $imageCount = count(DB::table('photos')->get());
 
-    // ddd($nextId);
-    
 
     if ($lastId < $minId) {
       $lastId = $maxId;
@@ -170,7 +177,9 @@ public function getSnatch($id) {
       ->with('lastId', $lastId)
       ->with('nextId', $nextId)
       ->with('user', $user)
-      ->with('imageThumb', $imageThumb);
+      ->with('imageThumb', $imageThumb)
+      ->with('currentUser', $currentUser)
+      ->with('imageLikesCount', $imageLikesCount);
     } else {
       return Redirect::to('/')->with('error','Image not found');
     }
@@ -183,7 +192,7 @@ public function getAll(){
     $all_images = DB::table('photos')->orderBy('id','desc')->paginate(4);
   
     //Then let's load the view with found data and pass thevariable to the view
-    return View::make('tpl.all_images')->with('images',$all_images);
+    return View::make('tpl.all_images')->with('images', $all_images);
 
     $likes = Photo::with('user')
     ->orderBy('posted_at', 'desc')
@@ -191,19 +200,20 @@ public function getAll(){
 return view('home', ['likes' => $likes]);
 }
 
+
 public function getDelete($id) {
     //Let's first find the image
     $image = Photo::find($id);
 
     if(!$image) {
-      abort(404);
+      abort(404)->with('error', 'Image not found!');
     }
   
     //If there's an image, we will continue to the deletingprocess
     if($image) {
       //First, let's delete the images from FTP
-      File::delete(Config::get('image.upload_folder').'/'.$image->image);
-      File::delete(Config::get('image.thumb_folder').'/'.$image->image);
+      File::delete(Config::get('images.upload_folder').'/'.$image->image);
+      File::delete(Config::get('images.thumb_folder').'/'.$image->image);
   
       //Now let's delete the value from database
       $image->delete();
@@ -216,6 +226,36 @@ public function getDelete($id) {
       return Redirect::to('/')->with('error','No image found with given ID');
     }
 }
+
+
+
+/*********** LIKE SYSTEM **********/
+
+
+public function likeImage($id){
+
+
+    $image = Photo::find($id);
+    
+    $idUser = Auth::id();
+    $currentUser = User::find($idUser);
+
+    
+
+    if ($currentUser->isFollowing($image)){
+
+      $currentUser->unfollow($image);
+
+    } else {
+      
+      $currentUser->follow($image);
+
+    }
+    
+    return redirect()->back()->with('success', 'You liked this image');
+}
+
+
 
 
 }

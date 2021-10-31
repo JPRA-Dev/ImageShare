@@ -16,12 +16,35 @@
             <div class="flex flex-wrap">
             {{Form::text('title','',array('placeholder'=>'Please insert your title here', 'class'=>" w-full block text-gray-700 text-sm font-bold mb-2 sm:mb-4"))}}
             </div>
+            @if($errors->has('title'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+                      <span class="block">{{ $errors->first('title') }}</span>
+                      <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                    </div>
+             @endif
+
             <div class="flex flex-wrap">
             {{Form::file('image', array('class'=>" block text-gray-700 text-sm font-bold mb-2 sm:mb-4"))}}
             </div>
+
+            @if($errors->has('image'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+                      <span class="block">{{ $errors->first('image') }}</span>
+                      <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                    </div>
+             @endif
+
             <div class="flex flex-wrap">
               {{Form::text('description','',array('placeholder'=>'Please give a little description', 'class'=>" w-full block text-gray-700 text-sm font-bold mb-2 sm:mb-4"))}}
               </div>
+
+              @if($errors->has('description'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+                      <span class="block">{{ $errors->first('description') }}</span>
+                      <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                    </div>
+             @endif
+
             <div class="flex flex-wrap">
             {{Form::submit('save!',array('name'=>'send', 'class' => "w-full  select-none font-bold whitespace-no-wrap p-3 rounded-lg uppercase text-base leading-normal no-underline text-white bg-blue-900 hover:bg-white sm:py-4 hover:text-blue-900 hover:shadow-md shadow text-xs px-4 rounded outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"))}}
             </div>

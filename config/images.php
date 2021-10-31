@@ -7,7 +7,7 @@
 return array(
 
   //the folder that will hold original uploaded images
-  'upload_folder' => 'uploads',
+  'upload_folder' => 'uploads/images',
 
   //the folder that will hold thumbnails
   'thumb_folder' => 'uploads/thumbs',

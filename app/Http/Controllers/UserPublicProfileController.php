@@ -32,15 +32,62 @@ class UserPublicProfileController extends Controller
         }
 
 
-        // $userImages = Photo::find($user);
+        
         $userImages = DB::table('photos')->where('user', '=',  $user->id )->get();
-        // return view('user.profile', ['user' => $user, 'userCheck' => $userCheck]);
-
+        $userImagesPaginate = DB::table('photos')->where('user', '=',  $user->id )->paginate(4);
 
         $imageCount = count($userImages);
 
+        
+    
+
+        $likedImages = DB::table("user_follower")->where('follower_id', $user->id )->pluck('following_id');
+        
+        
+
+        // ddd($likedImages[0]);
+        
+        
+
+        foreach ($likedImages as $each) {
+            $likedImagesShow[] = DB::table('photos')->where('id', '=', $each)->get();
+            $likedImagesPaginate[] = DB::table('photos')->where('id', '=', $each)->paginate(2);
+        }
+
+        // $likedImagesShow->TOaR->paginate(2);
+
+        // $likedImagesPaginate = DB::table('photos')->where('id', '=',  $likedImages[0])->paginate(2);
+        // $likedImagesShow[] = DB::table('photos')->where('id', '=',  $likedImagesIds)->get();
+        // $likedImagesShow = DB::table('photos')->where('id', '=', $likedImagesIds);
+
+        
+        
+
+
+        
+        foreach($userImages as $images) {
+
+            $imageLikes = DB::table("user_follower")->where('following_id', '=',  $images->id )->get();
+
+        }
+     
+
+        if (isset($imageLikes)) {
+            $imageLikesCount = count($imageLikes);
+        } else {
+            $imageLikesCount = 0;
+        }
+        
+
+      
+
+
         return view('user.profile',compact('user', 'userCheck'))
             ->with('userImages', $userImages)
-            ->with('imageCount', $imageCount);
+            ->with('userImagesPaginate', $userImagesPaginate)
+            ->with('imageCount', $imageCount)
+            ->with('likedImagesShow', $likedImagesShow)
+            ->with('likedImagesPaginate', $likedImagesPaginate)
+            ->with('imageLikesCount', $imageLikesCount);
     }
 }

@@ -2,7 +2,9 @@
 
 
 @section('content')
+
 <main class="profile-page">
+  
     <section class="relative block h-500-px">
       <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
               background-image: url('/uploads/bgImages/{{ $user->bgImage }}');
@@ -19,7 +21,7 @@
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
           <div class="px-6">
             <div class="flex flex-wrap justify-center">
-              <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center" style="margin-bottom: 100px;">
+              <div class="w-full lg:w-3/12 px-4 lg:order-2 sm:mb-32 md:mb-32 flex justify-center">
                 <div class="relative">
                   <img src="/uploads/avatars/{{ $user->avatar }}" class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                 </div>
@@ -63,7 +65,7 @@
               <div class="w-full lg:w-4/12 px-4 lg:order-1">
                 <div class="flex justify-center py-4 lg:pt-4 pt-8">
                     <div class="mr-4 p-3 text-center">
-                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span class="text-sm text-blueGray-400">Likes</span>
+                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageLikesCount}}</span><span class="text-sm text-blueGray-400">Image Likes</span>
                     </div>
                     <div class="mr-4 p-3 text-center">
                       <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageCount}}</span><span class="text-sm text-blueGray-400">Images Uploaded</span>
@@ -82,7 +84,7 @@
               <div class="w-full lg:w-4/12 px-4 lg:order-1">
                 <div class="flex justify-center py-4 lg:pt-4 pt-8">
                     <div class="mr-4 p-3 text-center">
-                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span class="text-sm text-blueGray-400">Likes</span>
+                      <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageLikesCount}}</span><span class="text-sm text-blueGray-400">Image Likes</span>
                     </div>
                     
                   </div>
@@ -123,16 +125,33 @@
                   {{-- <a href="#pablo" class="font-normal text-pink-500">Show more</a> --}}
                 </div>
               </div>
+            </div>
+
+           
                 
 
-                  @if(count($userImages))
+              {{-- UPLOAD IMAGES --}}
 
-                    <div class="mt-10 py-10 border-t border-blueGray-200 flex flex-wrap justify-center">
-                      <div class="w-full lg:w-9/12 px-4 ">
+              
+                  
 
+                    <div class="border-t border-blueGray-200 flex flex-wrap justify-center">
+
+                      <div  class="grid place-items-center grid-cols-2 flex bg-center bg-cover mt-10">
+                        <button onclick="upImagesFunction()" class="col-1 bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                          Uploaded Images
+                        </button>
+                        <button onclick="likedImagesFunction()" class="col-2 bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                          Liked Images
+                        </button>
+                      </div>
+
+
+                      @if(count($userImages))
+                      <div id="userImages" class="grid w-full lg:w-9/12 px-4 ">
 
                         <div class="grid place-items-center min-h-screen">
-                          <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-4 lg:gap-6">
+                          <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-2 xl:grid-cols-4 lg:gap-6">
                         
                             @foreach($userImages as $each)
                               <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
@@ -145,14 +164,40 @@
                               </div>
                             @endforeach
 
-                        {{-- <p>{{$userImages->links()}}</p> --}}
+                            <p class="grid place-items-center mb-10">{{$userImagesPaginate->links()}}</p>
                     
                           </div>
                         </div>
                       </div>
+                      @endif
+
+                      @if(count($likedImagesShow))
+                      <div id="likedImages" class="w-full lg:w-9/12 px-4" style="display: none;">
+
+                        <div class="grid place-items-center min-h-screen">
+                          <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-2 xl:grid-cols-4 lg:gap-6">
+                        
+                            @foreach($likedImagesShow as $each)
+                              <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                                  <a href="{{URL::to('snatch/'.$each[0]->id)}}">
+                                    <img
+                                    src="{{URL::to(Config::get('images.thumb_folder').'/'.$each[0]->image)}}"
+                                    class="w-100 shadow-1-strong rounded mb-4 hover:shadow-2xl"
+                                    alt="This image cannot be displayed"/>
+                                  </a>
+                              </div>
+                            @endforeach
+
+                            {{-- <p class="grid place-items-center mb-10">{{$likedImagesPaginate[0]->links()}}</p> --}}
+                    
+                          </div>
+                        </div>
+                      </div>
+                      @endif
+
                     </div>
 
-                  @endif
+                  
 
           </div>
         </div>
