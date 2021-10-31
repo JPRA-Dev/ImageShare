@@ -125,13 +125,30 @@
                   {{-- <a href="#pablo" class="font-normal text-pink-500">Show more</a> --}}
                 </div>
               </div>
+            </div>
+
+           
                 
 
-                  @if(count($userImages))
+              {{-- UPLOAD IMAGES --}}
+
+              
+                  
 
                     <div class="border-t border-blueGray-200 flex flex-wrap justify-center">
-                      <div class="w-full lg:w-9/12 px-4 ">
 
+                      <div  class="grid place-items-center grid-cols-2 flex bg-center bg-cover mt-10">
+                        <button onclick="upImagesFunction()" class="col-1 bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                          Uploaded Images
+                        </button>
+                        <button onclick="likedImagesFunction()" class="col-2 bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                          Liked Images
+                        </button>
+                      </div>
+
+
+                      @if(count($userImages))
+                      <div id="userImages" class="grid w-full lg:w-9/12 px-4 ">
 
                         <div class="grid place-items-center min-h-screen">
                           <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-2 xl:grid-cols-4 lg:gap-6">
@@ -147,14 +164,40 @@
                               </div>
                             @endforeach
 
-                        {{-- <p>{{$userImages->links()}}</p> --}}
+                            <p class="grid place-items-center mb-10">{{$userImagesPaginate->links()}}</p>
                     
                           </div>
                         </div>
                       </div>
+                      @endif
+
+                      @if(count($likedImagesShow))
+                      <div id="likedImages" class="w-full lg:w-9/12 px-4" style="display: none;">
+
+                        <div class="grid place-items-center min-h-screen">
+                          <div class="p-4 max-w-5xl grid gap-4 xs:grid-cols-2 xs:p-8 md:grid-cols-2 xl:grid-cols-4 lg:gap-6">
+                        
+                            @foreach($likedImagesShow as $each)
+                              <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                                  <a href="{{URL::to('snatch/'.$each[0]->id)}}">
+                                    <img
+                                    src="{{URL::to(Config::get('images.thumb_folder').'/'.$each[0]->image)}}"
+                                    class="w-100 shadow-1-strong rounded mb-4 hover:shadow-2xl"
+                                    alt="This image cannot be displayed"/>
+                                  </a>
+                              </div>
+                            @endforeach
+
+                            {{-- <p class="grid place-items-center mb-10">{{$likedImagesPaginate[0]->links()}}</p> --}}
+                    
+                          </div>
+                        </div>
+                      </div>
+                      @endif
+
                     </div>
 
-                  @endif
+                  
 
           </div>
         </div>

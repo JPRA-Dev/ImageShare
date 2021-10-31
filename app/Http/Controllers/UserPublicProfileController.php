@@ -32,13 +32,37 @@ class UserPublicProfileController extends Controller
         }
 
 
-        // $userImages = Photo::find($user);
-        $userImages = DB::table('photos')->where('user', '=',  $user->id )->get();
-        // return view('user.profile', ['user' => $user, 'userCheck' => $userCheck]);
-
         
+        $userImages = DB::table('photos')->where('user', '=',  $user->id )->get();
+        $userImagesPaginate = DB::table('photos')->where('user', '=',  $user->id )->paginate(4);
 
         $imageCount = count($userImages);
+
+        
+    
+
+        $likedImages = DB::table("user_follower")->where('follower_id', $user->id )->pluck('following_id');
+        
+        
+
+        // ddd($likedImages[0]);
+        
+        
+
+        foreach ($likedImages as $each) {
+            $likedImagesShow[] = DB::table('photos')->where('id', '=', $each)->get();
+            $likedImagesPaginate[] = DB::table('photos')->where('id', '=', $each)->paginate(2);
+        }
+
+        // $likedImagesShow->TOaR->paginate(2);
+
+        // $likedImagesPaginate = DB::table('photos')->where('id', '=',  $likedImages[0])->paginate(2);
+        // $likedImagesShow[] = DB::table('photos')->where('id', '=',  $likedImagesIds)->get();
+        // $likedImagesShow = DB::table('photos')->where('id', '=', $likedImagesIds);
+
+        
+        
+
 
         
         foreach($userImages as $images) {
@@ -60,7 +84,10 @@ class UserPublicProfileController extends Controller
 
         return view('user.profile',compact('user', 'userCheck'))
             ->with('userImages', $userImages)
+            ->with('userImagesPaginate', $userImagesPaginate)
             ->with('imageCount', $imageCount)
+            ->with('likedImagesShow', $likedImagesShow)
+            ->with('likedImagesPaginate', $likedImagesPaginate)
             ->with('imageLikesCount', $imageLikesCount);
     }
 }

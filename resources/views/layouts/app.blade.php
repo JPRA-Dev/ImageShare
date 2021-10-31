@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('js/script.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
@@ -89,15 +90,15 @@
 
         @if (\Session::has('success'))
         <div class="w-full bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-          <p class="font-bold">Success</p>
-          <p class="text-sm">{{\Session::get('success')}}</p>
+          <p class="ml-4 font-bold">Success</p>
+          <p class="ml-4 text-sm">{{\Session::get('success')}}</p>
         </div>
         @endif
 
         @if (\Session::has('error'))
         <div class="w-full bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
-          <p class="font-bold">Error</p>
-          <p class="text-sm">{{\Session::get('error')}}</p>
+          <p class="ml-4 font-bold">Error</p>
+          <p class="ml-4 text-sm">{{\Session::get('error')}}</p>
         </div>
         @endif
 
