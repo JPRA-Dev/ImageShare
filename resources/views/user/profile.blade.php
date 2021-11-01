@@ -73,8 +73,10 @@
                   </div>
               </div>
             </div>
+
               @else
-              <div class="w-full lg:w-4/12 px-4 lg:order-3">
+            
+              <div class="w-full lg:w-4/12 px-4 lg:order-3 ">
                 <div class="flex justify-center py-4 lg:pt-4 pt-8">
                   <div class="mr-4 p-3 text-center">
                     <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$imageCount}}</span><span class="text-sm text-blueGray-400">Images Uploaded</span>
@@ -136,15 +138,20 @@
                   
 
                     <div class="border-t border-blueGray-200 flex flex-wrap justify-center">
-
+                      @if((count($userImages)) OR (isset($likedImagesShow)))
                       <div  class="grid place-items-center grid-cols-2 flex bg-center bg-cover mt-10">
+                        @if(count($userImages))
                         <button onclick="upImagesFunction()" class="col-1 bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
                           Uploaded Images
                         </button>
+                        @endif
+                        @if(isset($likedImagesShow))
                         <button onclick="likedImagesFunction()" class="col-2 bg-blue-900 hover:bg-white uppercase text-white hover:text-blue-900 font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
                           Liked Images
                         </button>
+                        @endif
                       </div>
+                      @endif
 
 
                       @if(count($userImages))
@@ -171,7 +178,7 @@
                       </div>
                       @endif
 
-                      @if(count($likedImagesShow))
+                      @if(isset($likedImagesShow))
                       <div id="likedImages" class="w-full lg:w-9/12 px-4" style="display: none;">
 
                         <div class="grid place-items-center min-h-screen">

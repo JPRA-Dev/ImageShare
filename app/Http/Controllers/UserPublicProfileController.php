@@ -39,9 +39,15 @@ class UserPublicProfileController extends Controller
         $imageCount = count($userImages);
 
         
+        
     
 
         $likedImages = DB::table("user_follower")->where('follower_id', $user->id )->pluck('following_id');
+
+        if ($likedImages === NULL) {   
+          
+
+        }
         
         
 
@@ -52,6 +58,14 @@ class UserPublicProfileController extends Controller
         foreach ($likedImages as $each) {
             $likedImagesShow[] = DB::table('photos')->where('id', '=', $each)->get();
             $likedImagesPaginate[] = DB::table('photos')->where('id', '=', $each)->paginate(2);
+        }
+
+        if(!isset($likedImagesShow)){
+            $likedImagesShow = NULL;
+        }
+
+        if(!isset($likedImagesPaginate)){
+            $likedImagesPaginate = NULL;
         }
 
         // $likedImagesShow->TOaR->paginate(2);
