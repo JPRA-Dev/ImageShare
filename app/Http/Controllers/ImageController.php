@@ -51,8 +51,8 @@ class ImageController extends Controller {
     //If there's an image, we will continue to the editing process
     
     $request->validate([
-        'title' => ['string', 'max:20'],
-        'description' => ['string', 'max:20'],
+        'title' => ['string', 'max:40'],
+        'description' => ['string', 'max:200'],
     ]);
        
     $photo->title = $request['title'];
