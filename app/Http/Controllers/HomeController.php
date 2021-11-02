@@ -85,12 +85,18 @@ class HomeController extends Controller
         
         
         $user = User::find(auth()->user()->id);
+
+        
+
         $user->email = $request['email'];
         $user->email_verified_at = null;
+
         
         $user->update();
+
+       
         
-        return redirect('/profile/'.Auth()->user()->name)->with('success', 'Your email has been changed! A confirmation has been sent to your new email address.');
+        return redirect('profile/'.Auth()->user()->name)->with('success', 'Your email has been changed! A confirmation has been sent to your new email address.');
     }
 
 

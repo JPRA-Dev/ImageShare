@@ -92,7 +92,7 @@ Route::get('/error/{error}',[UserController::class,'getErrorHandler']);
 
 Route::get('/changeEmail',[HomeController::class,'getChangeEmail'])->middleware('auth');
 
-Route::put('/changeEmail',[HomeController::class,'changeEmail'])->middleware('XssSanitizer')->middleware('auth')->middleware('verified')->middleware('password.confirm');
+Route::put('/changeEmail',[HomeController::class,'changeEmail'])->middleware('XssSanitizer')->middleware('auth')->middleware('password.confirm');
 
 
 
