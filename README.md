@@ -24,7 +24,6 @@ https://jimageshare.herokuapp.com
 
 
 ## Functionalities
-
 -> A home page that includes all the users shared images displayed in the form of tiles.
 
 -> A page where the user can upload images to the website.
@@ -69,6 +68,7 @@ https://jimageshare.herokuapp.com
 -> All the website is fully responsive to tablets and smartphones.
 
 -> All the database is in an online Mysql database.
+
 
 
 
