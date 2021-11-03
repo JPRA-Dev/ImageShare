@@ -29,11 +29,11 @@ https://jimageshare.herokuapp.com
 -> A page where the user can upload images to the website.
 
 -> When you click on the images, you are redirected to a page that provides more details to it by displaying:
-    - The image (redirects to an external link on click)
-    - His title
-    - Its description
-    - The author of the share (redirectind to his/her profile on click)
-    - A like button to like the picture
+- The image (redirects to an external link on click)
+- His title
+- Its description
+- The author of the share (redirectind to his/her profile on click)
+- A like button to like the picture
     
 -> A Login and Register page where the user must be characterized by:
     - Name
