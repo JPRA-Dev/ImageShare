@@ -36,26 +36,26 @@ https://jimageshare.herokuapp.com
 - A like button to like the picture
     
 -> A Login and Register page where the user must be characterized by:
-    - Name
-    - First Name
-    - Nickname
-    - Profile Picture
-    - Email address
-    - Password
+- Name
+- First Name
+- Nickname
+- Profile Picture
+- Email address
+- Password
     
 -> A profile page that shows:
-    - All the users information
-    - All the users shared images
-    - All images liked by the user
-    - How many images where uploaded by the user
-    - How many likes the user received in total
+- All the users information
+- All the users shared images
+- All images liked by the user
+- How many images where uploaded by the user
+- How many likes the user received in total
     
 -> If the user is logged in, in his own profile page he will also be able to:
-    - Change the avatar
-    - Change the background picture
-    - Edit all his/her info
-    - Change email
-    - Delete the account
+- Change the avatar
+- Change the background picture
+- Edit all his/her info
+- Change email
+- - Delete the account
 
 -> All the information added by the user is validated in the controllers and sanitized by a personal middleware.
 
