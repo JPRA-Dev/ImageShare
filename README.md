@@ -55,7 +55,7 @@ https://jimageshare.herokuapp.com
 - Change the background picture
 - Edit all his/her info
 - Change email
-- - Delete the account
+- Delete the account
 
 -> All the information added by the user is validated in the controllers and sanitized by a personal middleware.
 
