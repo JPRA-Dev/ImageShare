@@ -10,7 +10,7 @@
 
 
 ## General informations 
-Title       : "J'IMAGE" (my image sharing website) 
+Title       : J'IMAGE (my image sharing website) 
 
 Description : The objective of this project was to "non-identically" reproduce the Pinterest platform.
 
