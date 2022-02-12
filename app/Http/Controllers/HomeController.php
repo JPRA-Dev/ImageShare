@@ -47,12 +47,7 @@ class HomeController extends Controller
             'website' => ['string', 'min:5', 'url', 'max:30'],
             'description' => ['string', 'min:3', 'max:200'],
         ]);
-        
-        // if ($validator->fails()) {
-        //     $message = $validator->errors()->first();
-        // } else {
-        //     $message = "Profile Updated";
-        // }
+    
 
         
         $user = User::find(auth()->user()->id);
