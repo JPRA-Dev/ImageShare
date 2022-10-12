@@ -14,7 +14,8 @@ Title       : J'IMAGE (my image sharing website)
 
 Description : The objective of this project was to "non-identically" reproduce the Pinterest platform.
 
-WARNING: You can find some problems with missing images at the moment. Thar is because we are changing the database server.
+WARNING: You can find some problems with missing images at the moment.
+That is because we are changing the database server.
 As soon as the migration is finished, everything will be back to normal.
 
 ## Author
