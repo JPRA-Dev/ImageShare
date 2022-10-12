@@ -18,7 +18,6 @@ WARNING: You can find some problems with missing images at the moment.
 That is because we are changing the database server.
 As soon as the migration is finished, everything will be back to normal.
 
-<span style="color:orange;">Word up</span>
 
 ## Author
 João Andrade => Junior Web Developer @Becore.org
