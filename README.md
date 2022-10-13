@@ -14,6 +14,9 @@ Title       : J'IMAGE (my image sharing website)
 
 Description : The objective of this project was to "non-identically" reproduce the Pinterest platform.
 
+Warning: I'm having some troubles with the database where the images get deleted after some time.
+It will be solved when we change to the new database server.
+
 
 ## Author
 João Andrade => Junior Web Developer @Becore.org
